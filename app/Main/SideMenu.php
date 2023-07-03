@@ -43,14 +43,38 @@ class SideMenu
                     ]
                 ]
             ],
-            'product' => [
+            'rental' => [
                 'icon' => 'inbox',
+                'route_name' => 'rental.index',
+                'params' => [
+                    'layout' => 'side-menu'
+                ],
+                'title' => 'Rental'
+            ],
+            'payment' => [
+                'icon' => 'inbox',
+                'route_name' => 'payment.index',
+                'params' => [
+                    'layout' => 'side-menu'
+                ],
+                'title' => 'Pembayaran'
+            ],
+            'retur' => [
+                'icon' => 'inbox',
+                'route_name' => 'retur.index',
+                'params' => [
+                    'layout' => 'side-menu'
+                ],
+                'title' => 'Pengembalian'
+            ],
+            'product' => [
+                'icon' => 'camera',
                 'route_name' => 'product.index',
                 'params' => [
                     'layout' => 'side-menu'
                 ],
-                'title' => 'Product'
-            ]
+                'title' => 'Produk'
+            ],
         ];
     }
 }
