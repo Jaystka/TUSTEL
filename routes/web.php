@@ -3,9 +3,14 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PageController;
-use App\Http\Controllers\ProductController;
 use App\Http\Controllers\DarkModeController;
 use App\Http\Controllers\ColorSchemeController;
+use App\Http\Controllers\RentalController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\LogoutController;
+use App\Http\Controllers\PembayaranController;
+use App\Http\Controllers\PengembalianController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,7 +41,7 @@ Route::middleware('auth')->group(function () {
     Route::get('dashboard-overview-2-page', [PageController::class, 'dashboardOverview2'])->name('dashboard-overview-2');
     Route::get('dashboard-overview-3-page', [PageController::class, 'dashboardOverview3'])->name('dashboard-overview-3');
     Route::resource('/product', ProductController::class);
-    Route::resource('/rental', ProductController::class);
+    Route::resource('/rental', RentalController::class);
     Route::resource('/payment', ProductController::class);
     Route::resource('/retur', ProductController::class);
     Route::resource('/customer', ProductController::class);

@@ -11,6 +11,7 @@ class Rental extends Model
     protected $primaryKey = 'id_rental';
     protected $fillable = [
         'id_rental',
+        'id_customer',
         'id_produk',
         'tanggal_sewa',
         'jumlah',

@@ -16,19 +16,19 @@
             <div class="intro-y box p-5">
                 <div>
                     <label for="camera" class="form-label">Nama Produk</label>
-                    <input id="camera" name="camera" type="text" class="form-control w-full" placeholder="Masukkan Nama Produk">
+                    <input id="camera" name="camera" type="text" class="form-control w-full" placeholder="Masukkan Nama Produk" required>
                 </div>
                 <div class="mt-3">
                     <label for="harga" class="form-label">Biaya Sewa</label>
-                    <input id="harga" name="harga" type="text" class="form-control w-full" placeholder="Masukkan Biaya Sewa">
+                    <input id="harga" name="harga" type="text" class="form-control w-full" placeholder="Masukkan Biaya Sewa" required>
                 </div>
                 <div class="mt-3">
                     <label for="jumlah" class="form-label">Jumlah</label>
-                    <input id="jumlah" name="jumlah" type="text" class="form-control w-full" placeholder="Masukkan Jumlah Produk">
+                    <input id="jumlah" name="jumlah" type="text" class="form-control w-full" placeholder="Masukkan Jumlah Produk" required>
                 </div>
                 <div class="mt-3">
                     <label>Deskripsi</label>
-                    <textarea class="form-control" name="describe" placeholder="Description"></textarea>
+                    <textarea class="form-control" name="describe" placeholder="Description" required></textarea>
                 </div>
                 <div class="text-right mt-5">
                     <a type="button" class="btn btn-outline-secondary w-24 mr-1" href="{{ route('product.index') }}">Cancel</a>

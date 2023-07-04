@@ -3,15 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Models\Rental;
+use App\Models\Product;
+use App\Models\Customer;
 use Illuminate\Http\Request;
 
 class RentalController extends Controller
 {
     public function index()
     {
-        $rental = Rental::orderBy('created_at', 'DESC')->get();
+        $rentals = Rental::orderByDesc('rentals.created_at')
+            ->join('products', 'products.id_produk', '=', 'rentals.id_produk')
+            ->join('customers', 'customers.id_customer', '=', 'rentals.id_customer')
+            ->paginate(2);
 
-        return view('rental.index', compact('rental'));
+        return view('rental.index', compact('rentals'));
     }
 
     /**
@@ -19,7 +24,10 @@ class RentalController extends Controller
      */
     public function create()
     {
-        return view('rental.create');
+        $rentals = Product::get();
+        $customers = Customer::get();
+
+        return view('rental.create', compact('rentals', 'customers'));
     }
 
     /**
@@ -48,8 +56,10 @@ class RentalController extends Controller
     public function edit(string $id_rental)
     {
         $rental = Rental::findOrFail($id_rental);
+        $customers = Customer::where('id_customer', $rental->id_customer)->get();
+        $products = Product::get();
 
-        return view('rental.edit', compact('rental'));
+        return view('rental.edit', compact('rental', 'products', 'customers'));
     }
 
     /**
