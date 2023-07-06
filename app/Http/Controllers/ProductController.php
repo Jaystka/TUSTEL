@@ -16,7 +16,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::orderBy('created_at', 'DESC')->get();
+        $products = Product::orderBy('created_at', 'DESC')->paginate(10);
 
 
         return view('product.index', compact('products'));
@@ -83,5 +83,22 @@ class ProductController extends Controller
         $product->delete();
 
         return redirect()->route('product.index')->with('success', 'product deleted successfully');
+    }
+
+    public function search(Request $request)
+    {
+        $products = Product::where([
+            ['camera', '!=', Null],
+            [function ($query) use ($request) {
+                if (($s = $request->s)) {
+                    $query->orWhere('camera', 'LIKE', '%' . $s . '%')
+                        ->orWhere('harga', 'LIKE', '%' . $s . '%')
+                        ->orderBy('created_at', 'DESC')->get();
+                }
+            }]
+        ])->paginate(10);
+
+
+        return view('product.search', compact('products'));
     }
 }

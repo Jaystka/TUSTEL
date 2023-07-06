@@ -9,12 +9,12 @@ use Illuminate\Http\Request;
 
 class RentalController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $rentals = Rental::orderByDesc('rentals.created_at')
             ->join('products', 'products.id_produk', '=', 'rentals.id_produk')
             ->join('customers', 'customers.id_customer', '=', 'rentals.id_customer')
-            ->paginate(2);
+            ->paginate(10);
 
         return view('rental.index', compact('rentals'));
     }

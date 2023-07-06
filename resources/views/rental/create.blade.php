@@ -1,13 +1,13 @@
 @extends('../layout/' . $layout)
 
 @section('subhead')
-<title>CRUD Form - Icewall - Tailwind HTML Admin Template</title>
+<title>Tambah Data Rental</title>
 @endsection
 
 @section('subcontent')
 
 <div class="intro-y flex items-center mt-8">
-    <h2 class="text-lg font-medium mr-auto">Form Layout</h2>
+    <h2 class="text-lg font-medium mr-auto">Tambah Data Rental</h2>
 </div>
 <div class="grid grid-cols-12 gap-6 mt-5">
     <div class="intro-y col-span-12 lg:col-span-6">
@@ -18,18 +18,18 @@
                 <div>
                     <label for="camera" class="form-label">Produk</label>
                     <select data-placeholder="Pilih Kamera" class="tom-select w-full" id="camera" name="id_produk" required>
-                        <option disabled selected value> -- Pilih Produk -- </option>
+                        <option disabled selected> -- Pilih Produk -- </option>
                         @foreach($rentals as $rental)
-                        <option value="{{ $rental->id_produk }}" selected>{{ $rental->camera }}</option>
+                        <option value="{{ $rental->id_produk }}" >{{ $rental->camera }}</option>
                         @endforeach
                     </select>
                 </div>
                 <div class="mt-3">
                     <label for="customer" class="form-label">Nama Pelanggan</label>
                     <select data-placeholder="Pilih Nama Pelanggan" class="tom-select w-full" id="customer" name="id_customer" required>
-                        <option disabled selected value> -- Pilih Nama Pelanggan -- </option>
+                        <option disabled selected> -- Pilih Nama Pelanggan -- </option>
                         @foreach($customers as $customer)
-                        <option value="{{ $customer->id_customer }}" selected>{{ $customer->nama }}</option>
+                        <option value="{{ $customer->id_customer }}">{{ $customer->nama }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -40,6 +40,7 @@
                 <div>
                     <label for="duration" class="form-label">Durasi</label>
                     <select data-placeholder="Pilih Durasi" class="tom-select w-full" id="duration" name="durasi" required>
+                        <option disabled selected> -- Pilih Durasi Rental -- </option>
                         <option value="6">6 Jam</option>
                         <option value="12">12 Jam</option>
                         <option value="24">1 Hari</option>

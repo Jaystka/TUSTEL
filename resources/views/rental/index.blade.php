@@ -1,14 +1,14 @@
 @extends('../layout/' . $layout)
 
 @section('subhead')
-<title>CRUD Data List - Icewall - Tailwind HTML Admin Template</title>
+<title>Rental</title>
 @endsection
 
 @section('subcontent')
-<h2 class="intro-y text-lg font-medium mt-10">Data List Layout</h2>
+<h2 class="intro-y text-lg font-medium mt-10">Daftar Rental</h2>
 <div class="grid grid-cols-12 gap-6 mt-5">
     <div class="intro-y col-span-12 flex flex-wrap sm:flex-nowrap items-center mt-2">
-        <a class="btn btn-primary shadow-md mr-2" href="{{ route('rental.create') }}">Add New Rental</a>
+        <a class="btn btn-primary shadow-md mr-2" href="{{ route('rental.create') }}">Tambah Rental</a>
         <div class="dropdown">
             <button class="dropdown-toggle btn px-2 box" aria-expanded="false" data-tw-toggle="dropdown">
                 <span class="w-5 h-5 flex items-center justify-center">
@@ -103,52 +103,7 @@
     <!-- END: Data List -->
     <!-- BEGIN: Pagination -->
     <div class="intro-y col-span-12 flex flex-wrap sm:flex-row sm:flex-nowrap items-center">
-        <nav class="w-full sm:w-auto sm:mr-auto">
-            <ul class="pagination">
-                <li class="page-item">
-                    <a class="page-link" href="#">
-                        <i class="w-4 h-4" data-feather="chevrons-left"></i>
-                    </a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="#">
-                        <i class="w-4 h-4" data-feather="chevron-left"></i>
-                    </a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="2">...</a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="?page=1">1</a>
-                </li>
-                <li class="page-item active">
-                    <a class="page-link" href="?page=2">2</a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="#">3</a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="#">...</a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="#">
-                        <i class="w-4 h-4" data-feather="chevron-right"></i>
-                    </a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="#">
-                        <i class="w-4 h-4" data-feather="chevrons-right"></i>
-                    </a>
-                </li>
-            </ul>
-        </nav>
-        <select class="w-20 form-select box mt-3 sm:mt-0">
-            <option>10</option>
-            <option>25</option>
-            <option>35</option>
-            <option>50</option>
-        </select>
-        {{ $rentals->links('vendor.pagination.tailwind') }}
+        {{ $rentals->links('vendor.pagination.customLinks') }}
     </div>
     <!-- END: Pagination -->
 </div>
