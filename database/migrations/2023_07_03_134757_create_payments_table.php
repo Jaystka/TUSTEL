@@ -13,7 +13,7 @@ class CreatePaymentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('pembayarans', function (Blueprint $table) {
+        Schema::create('payments', function (Blueprint $table) {
             $table->id('id_pembayaran');
             $table->unsignedBigInteger('id_rental');
             $table->foreign('id_rental')->references('id_rental')->on('rentals');
@@ -30,6 +30,6 @@ class CreatePaymentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pembayarans');
+        Schema::dropIfExists('payments');
     }
 }
