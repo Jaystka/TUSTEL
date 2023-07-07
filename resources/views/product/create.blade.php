@@ -40,7 +40,6 @@
     </div>
 </div>
 @endsection
-
 @section('script')
 <script src="{{ mix('dist/js/ckeditor-classic.js') }}"></script>
 @endsection

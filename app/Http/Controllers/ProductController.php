@@ -7,8 +7,6 @@ use App\Models\Product;
 use RealRashid\SweetAlert\Facades\Alert;
 
 
-
-
 class ProductController extends Controller
 {
     /**
@@ -37,7 +35,7 @@ class ProductController extends Controller
     {
         Product::create($request->all());
 
-        // Alert::success('Product Success Created')->background('#F2F2F0')->showConfirmButton('Ok', '#0b8a0b')->autoClose(3000);
+        Alert::success('Produk berhasil ditambahkan')->background('#F2F2F0')->showConfirmButton('Ok', '#0b8a0b')->autoClose(3000);
         return redirect()->route('product.index');
     }
 
@@ -70,7 +68,8 @@ class ProductController extends Controller
 
         $product->update($request->all());
 
-        return redirect()->route('product.index')->with('success', 'product updated successfully');
+        Alert::success('Produk berhasil diperbarui')->background('#F2F2F0')->showConfirmButton('Ok', '#0b8a0b')->autoClose(3000);
+        return redirect()->route('product.index');
     }
 
     /**
@@ -82,7 +81,12 @@ class ProductController extends Controller
 
         $product->delete();
 
-        return redirect()->route('product.index')->with('success', 'product deleted successfully');
+        $title = 'Hapus Produk!';
+        $text = "Anda yakin ingin menghapus?";
+        confirmDelete($title, $text);
+        return view('product.index', compact('product'));
+
+        return redirect()->route('product.index')->with('success', 'Produk berhasil dihapus');
     }
 
     public function search(Request $request)

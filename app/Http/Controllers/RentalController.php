@@ -6,6 +6,7 @@ use App\Models\Rental;
 use App\Models\Product;
 use App\Models\Customer;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class RentalController extends Controller
 {
@@ -37,7 +38,8 @@ class RentalController extends Controller
     {
         rental::create($request->all());
 
-        return redirect()->route('rental.index')->with('success', 'rental added successfully');
+        Alert::success('Rental berhasil ditambahkan')->background('#F2F2F0')->showConfirmButton('Ok', '#0b8a0b')->autoClose(3000);
+        return redirect()->route('rental.index');
     }
 
     /**
@@ -71,7 +73,8 @@ class RentalController extends Controller
 
         $rental->update($request->all());
 
-        return redirect()->route('rental.index')->with('success', 'rental updated successfully');
+        Alert::success('Rental berhasil diperbarui')->background('#F2F2F0')->showConfirmButton('Ok', '#0b8a0b')->autoClose(3000);
+        return redirect()->route('rental.index');
     }
 
     /**
