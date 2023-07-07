@@ -13,8 +13,12 @@ class CreatePaymentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('payments', function (Blueprint $table) {
-            $table->id();
+        Schema::create('pembayarans', function (Blueprint $table) {
+            $table->id('id_pembayaran');
+            $table->unsignedBigInteger('id_rental');
+            $table->foreign('id_rental')->references('id_rental')->on('rentals');
+            $table->string('jenis');
+            $table->string('total');
             $table->timestamps();
         });
     }
@@ -26,6 +30,6 @@ class CreatePaymentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('payments');
+        Schema::dropIfExists('pembayarans');
     }
 }

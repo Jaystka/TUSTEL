@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Payment;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class PaymentController extends Controller
 {

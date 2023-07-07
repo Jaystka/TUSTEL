@@ -52,7 +52,7 @@ class SideMenu
                 'title' => 'Rental'
             ],
             'payment' => [
-                'icon' => 'inbox',
+                'icon' => 'credit-card',
                 'route_name' => 'payment.index',
                 'params' => [
                     'layout' => 'side-menu'
@@ -60,7 +60,7 @@ class SideMenu
                 'title' => 'Pembayaran'
             ],
             'retur' => [
-                'icon' => 'inbox',
+                'icon' => 'calendar',
                 'route_name' => 'retur.index',
                 'params' => [
                     'layout' => 'side-menu'
@@ -74,6 +74,14 @@ class SideMenu
                     'layout' => 'side-menu'
                 ],
                 'title' => 'Produk'
+            ],
+            'customer' => [
+                'icon' => 'user',
+                'route_name' => 'customer.index',
+                'params' => [
+                    'layout' => 'side-menu'
+                ],
+                'title' => 'Customer'
             ],
         ];
     }
