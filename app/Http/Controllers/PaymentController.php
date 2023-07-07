@@ -10,7 +10,7 @@ class PaymentController extends Controller
 {
     public function index()
     {
-        $payment = Payment::orderBy('created_at', 'DESC')->get();
+        $payment = Payment::orderBy('created_at', 'DESC')->paginate(10);
 
         return view('payment.index', compact('payment'));
     }

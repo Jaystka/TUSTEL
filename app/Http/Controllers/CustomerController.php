@@ -9,9 +9,9 @@ class CustomerController extends Controller
 {
     public function index()
     {
-        $customer = Customer::orderBy('created_at', 'DESC')->get();
+        $customers = Customer::orderBy('created_at', 'DESC')->paginate(10);
 
-        return view('customer.index', compact('customer'));
+        return view('customer.index', compact('customers'));
     }
 
     /**
@@ -37,9 +37,9 @@ class CustomerController extends Controller
      */
     public function show(string $id_customer)
     {
-        $customer = Customer::findOrFail($id_customer);
+        $customers = Customer::findOrFail($id_customer);
 
-        return view('customer.show', compact('customer'));
+        return view('customer.show', compact('customers'));
     }
 
     /**
@@ -47,9 +47,9 @@ class CustomerController extends Controller
      */
     public function edit(string $id_customer)
     {
-        $customer = Customer::findOrFail($id_customer);
+        $customers = Customer::findOrFail($id_customer);
 
-        return view('customer.edit', compact('customer'));
+        return view('customer.edit', compact('customers'));
     }
 
     /**
@@ -57,9 +57,9 @@ class CustomerController extends Controller
      */
     public function update(Request $request, string $id_customer)
     {
-        $customer = Customer::findOrFail($id_customer);
+        $customers = Customer::findOrFail($id_customer);
 
-        $customer->update($request->all());
+        $customers->update($request->all());
 
         return redirect()->route('customer.index')->with('success', 'customer updated successfully');
     }
@@ -69,9 +69,9 @@ class CustomerController extends Controller
      */
     public function destroy(string $id_customer)
     {
-        $customer = Customer::findOrFail($id_customer);
+        $customers = Customer::findOrFail($id_customer);
 
-        $customer->delete();
+        $customers->delete();
 
         return redirect()->route('customer.index')->with('success', 'customer deleted successfully');
     }
