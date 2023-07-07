@@ -72,7 +72,8 @@
                         <p>{{ $rental['camera'] }}</p>
                     </td>
                     <td class="text-center">{{ $rental['tanggal_sewa'] }}</td>
-                    <td class="text-center">{{ $rental['durasi'] }} Jam</td>
+                    <td class="text-center">{{ $rental['durasi'] == '6' ? '6 Jam' : ($rental['durasi'] == '12' ? '12 Jam': ($rental['durasi'] == '24' ? '1 Hari' : 
+                    ($rental['durasi'] == '48' ? '2 Hari' : ($rental['durasi'] == '96' ? '4 Hari' : ($rental['durasi'] == '144' ? '7 Hari' : ($rental['durasi'] == '288' ? '14 Hari' : 'Kosong')) ) )))}}</td>
                     <td class="text-center">{{ $rental['jumlah'] }}</td>
                     <td class="table-report__action w-56">
                         <div class="flex justify-center items-center">
