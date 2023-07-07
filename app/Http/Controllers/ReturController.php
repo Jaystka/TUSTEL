@@ -9,9 +9,12 @@ class ReturController extends Controller
 {
     public function index()
     {
-        $retur = Retur::orderBy('created_at', 'DESC')->get();
+        $returs = Retur::orderByDesc('returs.created_at')
+            ->join('customers', 'customers.id_customer', '=', 'returs.id_customer')
+            ->select('returs.*', 'customers.nama')
+            ->paginate(10);
 
-        return view('retur.index', compact('retur'));
+        return view('retur.index', compact('returs'));
     }
 
     /**
@@ -37,9 +40,9 @@ class ReturController extends Controller
      */
     public function show(string $id_customer)
     {
-        $retur = Retur::findOrFail($id_customer);
+        $returs = Retur::findOrFail($id_customer);
 
-        return view('retur.show', compact('retur'));
+        return view('retur.show', compact('returs'));
     }
 
     /**
@@ -47,9 +50,9 @@ class ReturController extends Controller
      */
     public function edit(string $id_customer)
     {
-        $retur = Retur::findOrFail($id_customer);
+        $returs = Retur::findOrFail($id_customer);
 
-        return view('retur.edit', compact('retur'));
+        return view('retur.edit', compact('returs'));
     }
 
     /**
@@ -57,9 +60,9 @@ class ReturController extends Controller
      */
     public function update(Request $request, string $id_customer)
     {
-        $retur = Retur::findOrFail($id_customer);
+        $returs = Retur::findOrFail($id_customer);
 
-        $retur->update($request->all());
+        $returs->update($request->all());
 
         return redirect()->route('retur.index')->with('success', 'retur updated successfully');
     }
@@ -69,7 +72,7 @@ class ReturController extends Controller
      */
     public function destroy(string $id_customer)
     {
-        $retur = Retur::findOrFail($id_customer);
+        $returs = Retur::findOrFail($id_customer);
 
         $retur->delete();
 

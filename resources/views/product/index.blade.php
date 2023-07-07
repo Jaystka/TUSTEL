@@ -60,13 +60,9 @@
                 @if($products->count() > 0)
                 @foreach ($products as $product)
                 <tr class="intro-x">
-                    <td class="w-40">
-                        <div class="flex">
-                            <div class="w-10 h-10 ">
-                                {{ $product['id_produk'] }}
-                            </div>
-                        </div>
-                    </td>
+                    <td class="w-40 h-10 center">
+                        {{ $product['id_produk'] }}
+            </td>
                     <td>
                         <a href="" class=" font-medium whitespace-nowrap">{{ $product['camera'] }}</a>
                         <div class="text-slate-500 text-xs whitespace-nowrap mt-0.5"></div>

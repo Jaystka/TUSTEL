@@ -59,13 +59,9 @@
                 @if($payments->count() > 0)
                 @foreach ($payments as $payment)
                 <tr class="intro-x">
-                    <td class="w-40">
-                        <div class="flex">
-                            <div class="w-10 h-10 ">
-                                {{ $payment['id_pembayaran'] }}
-                            </div>
-                        </div>
-                    </td>
+                    <td class="w-40 h-10 center">
+                        {{ $payments['id_pembayaran'] }}
+            </td>
                     <td>
                         <a href="" class=" font-medium whitespace-nowrap">{{ $payment['id_rental'] }}</a>
                         <div class="text-slate-500 text-xs whitespace-nowrap mt-0.5"></div>

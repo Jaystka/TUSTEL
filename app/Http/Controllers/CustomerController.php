@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Customer;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class CustomerController extends Controller
 {
@@ -29,7 +30,8 @@ class CustomerController extends Controller
     {
         customer::create($request->all());
 
-        return redirect()->route('customer.index')->with('success', 'customer added successfully');
+        Alert::success('Berhasil ditambahkan')->background('#F2F2F0')->showConfirmButton('Ok', '#0b8a0b')->autoClose(3000);
+        return redirect()->route('customer.index');
     }
 
     /**
@@ -61,7 +63,8 @@ class CustomerController extends Controller
 
         $customers->update($request->all());
 
-        return redirect()->route('customer.index')->with('success', 'customer updated successfully');
+        Alert::success('Customer berhasil diperbarui')->background('#F2F2F0')->showConfirmButton('Ok', '#0b8a0b')->autoClose(3000);
+        return redirect()->route('customer.index');
     }
 
     /**

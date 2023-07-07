@@ -5,10 +5,11 @@
 @endsection
 
 @section('subcontent')
+@include('sweetalert::alert')
 <h2 class="intro-y text-lg font-medium mt-10">Data List Layout</h2>
 <div class="grid grid-cols-12 gap-6 mt-5">
     <div class="intro-y col-span-12 flex flex-wrap sm:flex-nowrap items-center mt-2">
-        <a class="btn btn-primary shadow-md mr-2" href="{{ route('rental.create') }}">Add New Rental</a>
+        <a class="btn btn-primary shadow-md mr-2" href="{{ route('retur.create') }}">Tambah Pengembalian</a>
         <div class="dropdown">
             <button class="dropdown-toggle btn px-2 box" aria-expanded="false" data-tw-toggle="dropdown">
                 <span class="w-5 h-5 flex items-center justify-center">
@@ -35,11 +36,10 @@
                 </ul>
             </div>
         </div>
-        <div class="hidden md:block mx-auto text-slate-500">{{ $rentals->links('vendor.pagination.customTotal') }}</div>
+        <div class="hidden md:block mx-auto text-slate-500">{{ $returs->links('vendor.pagination.customTotal') }}</div>
         <div class="w-full sm:w-auto mt-3 sm:mt-0 sm:ml-auto md:ml-0">
             <div class="w-56 relative text-slate-500">
-                <input type="text" class="form-control w-56 box pr-10" placeholder="Search...">
-                <i class="w-4 h-4 absolute my-auto inset-y-0 mr-3 right-0" data-feather="search"></i>
+                <input type="text" class="form-control w-56 box pr-10" name="s" placeholder="Search...">
             </div>
         </div>
     </div>
@@ -48,42 +48,35 @@
         <table class="table table-report -mt-2">
             <thead>
                 <tr>
-                    <th class="whitespace-nowrap">ID</th>
-                    <th class="whitespace-nowrap">NAMA PELANGGAN</th>
-                    <th class="text-center whitespace-nowrap">PRODUK</th>
-                    <th class="text-center whitespace-nowrap">TANGGAL SEWA</th>
-                    <th class="text-center whitespace-nowrap">DURASI</th>
-                    <th class="text-center whitespace-nowrap">JUMLAH</th>
-                    <th class="text-center whitespace-nowrap">ACTION</th>
+                    <th class="text-center whitespace-nowrap">NAMA PELANGGAN</th>
+                    <th class="text-center whitespace-nowrap">ID RENTAL</th>
+                    <th class="text-center whitespace-nowrap">TANGGAL KEMBALI</th>
+                    <th class="text-center whitespace-nowrap">DENDA</th>
                 </tr>
             </thead>
             <tbody>
-                @if($rentals->count() > 0)
-                @foreach ($rentals as $rental)
+                @if($returs->count() > 0)
+                @foreach ($returs as $retur)
                 <tr class="intro-x">
                     <td class="w-40 h-10 center">
-                                {{ $rental['id_rental'] }}
-                    </td>
+                        {{ $retur['nama'] }}
+            </td>
                     <td>
-                        <a href="" class=" font-medium whitespace-nowrap">{{ $rental['nama'] }}</a>
+                        <a href="" class=" font-medium whitespace-nowrap">{{ $retur['id_rental'] }}</a>
                         <div class="text-slate-500 text-xs whitespace-nowrap mt-0.5"></div>
                     </td>
-                    <td class="text-center">
-                        <p>{{ $rental['camera'] }}</p>
-                    </td>
-                    <td class="text-center">{{ $rental['tanggal_sewa'] }}</td>
-                    <td class="text-center">{{ $rental['durasi'] }} Jam</td>
-                    <td class="text-center">{{ $rental['jumlah'] }}</td>
+                    <td class="text-center">{{ $retur['tanggal_kembali'] }}</td>
+                    <td class="text-center">{{ $retur['denda'] }}</td>
                     <td class="table-report__action w-56">
                         <div class="flex justify-center items-center">
-                            <a class="flex items-center mr-3" href="{{ route('rental.edit', $rental->id_rental)}}">
+                            <a class="flex items-center mr-3" href="{{ route('retur.edit', $retur->id_customer)}}">
                                 <i data-feather="check-square" class="w-4 h-4 mr-1"></i> Edit
                             </a>
-                            <form action="{{ route('rental.destroy', $rental->id_produk) }}" method="POST" type="button" onsubmit="return confirm('Delete?')">
+                            <form action="{{ route('retur.destroy', $retur->id_customer) }}" method="POST" type="button" onsubmit="return confirm('Delete?')">
                                 @csrf
                                 @method('DELETE')
                                 <button class="flex items-center text-danger" data-tw-toggle="modal" data-tw-target="#delete-confirmation-modal">
-                                    <i data-feather="trash-2" class="w-4 h-4 mr-1"></i> Delete
+                                    <i data-feather="trash-2" class="w-4 h-4 mr-1" class="btn btn-danger" data-confirm-delete="true"></i> Delete
                                 </button>
                             </form>
                         </div>
@@ -93,7 +86,7 @@
                 @else
                 <tr>
                     <td class="text-center" colspan="5">
-                        Rental not found
+                        retur not found
                     </td>
                 </tr>
                 @endif
@@ -103,52 +96,7 @@
     <!-- END: Data List -->
     <!-- BEGIN: Pagination -->
     <div class="intro-y col-span-12 flex flex-wrap sm:flex-row sm:flex-nowrap items-center">
-        <nav class="w-full sm:w-auto sm:mr-auto">
-            <ul class="pagination">
-                <li class="page-item">
-                    <a class="page-link" href="#">
-                        <i class="w-4 h-4" data-feather="chevrons-left"></i>
-                    </a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="#">
-                        <i class="w-4 h-4" data-feather="chevron-left"></i>
-                    </a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="2">...</a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="?page=1">1</a>
-                </li>
-                <li class="page-item active">
-                    <a class="page-link" href="?page=2">2</a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="#">3</a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="#">...</a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="#">
-                        <i class="w-4 h-4" data-feather="chevron-right"></i>
-                    </a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="#">
-                        <i class="w-4 h-4" data-feather="chevrons-right"></i>
-                    </a>
-                </li>
-            </ul>
-        </nav>
-        <select class="w-20 form-select box mt-3 sm:mt-0">
-            <option>10</option>
-            <option>25</option>
-            <option>35</option>
-            <option>50</option>
-        </select>
-        {{ $rentals->links('vendor.pagination.tailwind') }}
+        {{ $returs->links('vendor.pagination.customLinks') }}
     </div>
     <!-- END: Pagination -->
 </div>

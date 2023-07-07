@@ -58,13 +58,9 @@
                 @if($customers->count() > 0)
                 @foreach ($customers as $customer)
                 <tr class="intro-x">
-                    <td class="w-40">
-                        <div class="flex">
-                            <div class="w-10 h-10 ">
-                                {{ $customer['id_customer'] }}
-                            </div>
-                        </div>
-                    </td>
+                    <td class="w-40 h-10 center">
+                        {{ $customer['id_customer'] }}
+            </td>
                     <td>
                         <a href="" class=" font-medium whitespace-nowrap">{{ $customer['nama'] }}</a>
                         <div class="text-slate-500 text-xs whitespace-nowrap mt-0.5"></div>

@@ -39,7 +39,7 @@ class RentalController extends Controller
     {
         rental::create($request->all());
 
-        Alert::success('Rental berhasil ditambahkan')->background('#F2F2F0')->showConfirmButton('Ok', '#0b8a0b')->autoClose(3000);
+        Alert::success('Berhasil ditambahkan')->background('#F2F2F0')->showConfirmButton('Ok', '#0b8a0b')->autoClose(3000);
         return redirect()->route('rental.index');
     }
 

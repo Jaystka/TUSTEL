@@ -11,6 +11,7 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\PembayaranController;
 use App\Http\Controllers\PengembalianController;
+use App\Http\Controllers\ReturController;
 use App\Models\Customer;
 
 /*
@@ -44,6 +45,6 @@ Route::middleware('auth')->group(function () {
     Route::resource('/product', ProductController::class);
     Route::resource('/rental', RentalController::class);
     Route::resource('/payment', PaymentController::class);
-    Route::resource('/retur', ProductController::class);
+    Route::resource('/retur', ReturController::class);
     Route::resource('/customer', CustomerController::class);
 });
