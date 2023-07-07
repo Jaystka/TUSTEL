@@ -39,13 +39,13 @@
                 <div class="mt-3">
                     <label for="duration" class="form-label">Durasi</label>
                     <select data-placeholder="Pilih Durasi" class="tom-select w-full" id="duration" name="durasi" required>
-                        <option value="6">6 Jam</option>
-                        <option value="12">12 Jam</option>
-                        <option value="24">1 Hari</option>
-                        <option value="48">2 Hari</option>
-                        <option value="96">4 Hari</option>
-                        <option value="144"> 7 Hari</option>
-                        <option value="288"> 14 Hari</option>
+                        <option value="6" {{ $rental->durasi == '6' ? 'selected' : '' }}>6 Jam</option>
+                        <option value="12" {{ $rental->durasi == '12' ? 'selected' : '' }}>12 Jam</option>
+                        <option value="24" {{ $rental->durasi == '24' ? 'selected' : '' }}>1 Hari</option>
+                        <option value="48" {{ $rental->durasi == '48' ? 'selected' : '' }}>2 Hari</option>
+                        <option value="96" {{ $rental->durasi == '96' ? 'selected' : '' }}>4 Hari</option>
+                        <option value="144" {{ $rental->durasi == '144' ? 'selected' : '' }}> 7 Hari</option>
+                        <option value="288" {{ $rental->durasi == '288' ? 'selected' : '' }}> 14 Hari</option>
                     </select>
                 </div>
                 <div class="mt-3">

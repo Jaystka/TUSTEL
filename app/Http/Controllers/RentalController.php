@@ -15,6 +15,7 @@ class RentalController extends Controller
         $rentals = Rental::orderByDesc('rentals.created_at')
             ->join('products', 'products.id_produk', '=', 'rentals.id_produk')
             ->join('customers', 'customers.id_customer', '=', 'rentals.id_customer')
+            ->select('rentals.*', 'products.camera', 'customers.nama')
             ->paginate(10);
 
         return view('rental.index', compact('rentals'));
