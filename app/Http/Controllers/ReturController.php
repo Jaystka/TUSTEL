@@ -74,7 +74,7 @@ class ReturController extends Controller
     {
         $returs = Retur::findOrFail($id_customer);
 
-        $retur->delete();
+        $returs->delete();
 
         return redirect()->route('retur.index')->with('success', 'retur deleted successfully');
     }
