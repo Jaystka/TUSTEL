@@ -12,10 +12,13 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::orderBy('created_at', 'DESC')->paginate(10);
-
+        if ($request->has('search')) {
+            $products = Product::where('camera', 'like', '%' . $request->search . '%')->paginate(10);
+        } else {
+            $products = Product::orderBy('created_at', 'DESC')->paginate(10);
+        }
 
         return view('product.index', compact('products'));
     }
