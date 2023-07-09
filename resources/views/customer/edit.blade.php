@@ -1,7 +1,7 @@
 @extends('../layout/' . $layout)
 
 @section('subhead')
-<title>CRUD Form - Icewall - Tailwind HTML Admin Template</title>
+<title>TUSTEL - Pelanggan</title>
 @endsection
 
 @section('subcontent')
