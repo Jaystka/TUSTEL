@@ -8,9 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Retur extends Model
 {
     use HasFactory;
-    protected $primaryKey = 'id_customer';
+    protected $primaryKey = 'id_retur';
     protected $fillable = [
-        'id_customer',
+        'id_retur',
         'id_rental',
         'tanggal_kembali',
         'denda'

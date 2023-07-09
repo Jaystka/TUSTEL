@@ -1,15 +1,15 @@
 @extends('../layout/' . $layout)
 
 @section('subhead')
-<title>CRUD Data List - Icewall - Tailwind HTML Admin Template</title>
+<title>TUSTEL - Pelanggan</title>
 @endsection
 
 @section('subcontent')
 @include('sweetalert::alert')
-<h2 class="intro-y text-lg font-medium mt-10">Data List Layout</h2>
+<h2 class="intro-y text-lg font-medium mt-10">Daftar Pelanggan</h2>
 <div class="grid grid-cols-12 gap-6 mt-5">
     <div class="intro-y col-span-12 flex flex-wrap sm:flex-nowrap items-center mt-2">
-        <a class="btn btn-primary shadow-md mr-2" href="{{ route('customer.create') }}">Tambah Customer</a>
+        <a class="btn btn-primary shadow-md mr-2" href="{{ route('customer.create') }}">Tambah Pelanggan</a>
         <div class="dropdown">
             <button class="dropdown-toggle btn px-2 box" aria-expanded="false" data-tw-toggle="dropdown">
                 <span class="w-5 h-5 flex items-center justify-center">
@@ -39,7 +39,12 @@
         <div class="hidden md:block mx-auto text-slate-500">{{ $customers->links('vendor.pagination.customTotal') }}</div>
         <div class="w-full sm:w-auto mt-3 sm:mt-0 sm:ml-auto md:ml-0">
             <div class="w-56 relative text-slate-500">
-                <input type="text" class="form-control w-56 box pr-10" name="s" placeholder="Search...">
+                <form action="/customer" method="GET" class="form-inline">
+                    <input type="search" class="form-control w-56 box pr-10" name="search" placeholder="Search...">
+                    <button type="submit">
+                    <i class="w-4 h-4 absolute my-auto inset-y-0 mr-3 right-0" data-feather="search"></i>
+                    </button>
+                    </form>
             </div>
         </div>
     </div>

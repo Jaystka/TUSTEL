@@ -12,11 +12,24 @@ class RentalController extends Controller
 {
     public function index(Request $request)
     {
-        $rentals = Rental::orderByDesc('rentals.created_at')
-            ->join('products', 'products.id_produk', '=', 'rentals.id_produk')
-            ->join('customers', 'customers.id_customer', '=', 'rentals.id_customer')
-            ->select('rentals.*', 'products.camera', 'customers.nama')
-            ->paginate(10);
+        // $foods = Food::join('food_ingredient', 'food_ingredient.food_id','=', 'food.id')
+        //  ->join('ingredients','ingredient.id','=','food_ingredient.ingredient.id')
+        //  ->where('ingredient.title', 'LIKE', '%' . $search . '%') ...
+        if ($request->has('search')) {
+            $rentals = Rental::join('products', 'products.id_produk', '=', 'rentals.id_produk')
+                ->join('customers', 'customers.id_customer', '=', 'rentals.id_customer')
+                ->where('nama', 'like', '%' . $request->search . '%')
+                ->orWhere('camera', 'like', '%' . $request->search . '%')
+                ->paginate(10);
+        } else {
+
+            $rentals = Rental::orderByDesc('rentals.created_at')
+                ->join('products', 'products.id_produk', '=', 'rentals.id_produk')
+                ->join('customers', 'customers.id_customer', '=', 'rentals.id_customer')
+                ->select('rentals.*', 'products.camera', 'customers.nama')
+                ->paginate(10);
+        }
+
 
         return view('rental.index', compact('rentals'));
     }

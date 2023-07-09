@@ -4,14 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Retur;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class ReturController extends Controller
 {
     public function index()
     {
         $returs = Retur::orderByDesc('returs.created_at')
-            ->join('customers', 'customers.id_customer', '=', 'returs.id_customer')
-            ->select('returs.*', 'customers.nama')
             ->paginate(10);
 
         return view('retur.index', compact('returs'));
@@ -32,7 +31,8 @@ class ReturController extends Controller
     {
         retur::create($request->all());
 
-        return redirect()->route('retur.index')->with('success', 'retur added successfully');
+        Alert::success('Berhasil ditambahkan')->background('#F2F2F0')->showConfirmButton('Ok', '#0b8a0b')->autoClose(3000);
+        return redirect()->route('retur.index');
     }
 
     /**
@@ -64,7 +64,8 @@ class ReturController extends Controller
 
         $returs->update($request->all());
 
-        return redirect()->route('retur.index')->with('success', 'retur updated successfully');
+        Alert::success('Retur berhasil diperbarui')->background('#F2F2F0')->showConfirmButton('Ok', '#0b8a0b')->autoClose(3000);
+        return redirect()->route('retur.index');
     }
 
     /**

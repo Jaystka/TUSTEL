@@ -14,7 +14,7 @@ class CreateRetursTable extends Migration
     public function up()
     {
         Schema::create('returs', function (Blueprint $table) {
-            $table->id('id_customer');
+            $table->id('id_retur');
             $table->unsignedBigInteger('id_rental');
             $table->foreign('id_rental')->references('id_rental')->on('rentals');
             $table->date('tanggal_kembali');

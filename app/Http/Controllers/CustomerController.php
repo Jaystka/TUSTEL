@@ -8,12 +8,27 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class CustomerController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $customers = Customer::orderBy('created_at', 'DESC')->paginate(10);
+        if ($request->has('search')) {
+            $customers = Customer::where('nama', 'like', '%' . $request->search . '%')->paginate(10);
+        } else {
+            $customers = Customer::orderBy('created_at', 'DESC')->paginate(10);
+        }
 
         return view('customer.index', compact('customers'));
     }
+
+    // public function index(Request $request)
+    // {
+    //     if ($request->has('search')) {
+    //         $products = Product::where('camera', 'like', '%' . $request->search . '%')->paginate(10);
+    //     } else {
+    //         $products = Product::orderBy('created_at', 'DESC')->paginate(10);
+    //     }
+
+    //     return view('product.index', compact('products'));
+    // }
 
     /**
      * Show the form for creating a new resource.
