@@ -17,4 +17,5 @@ class Rental extends Model
         'jumlah',
         'durasi'
     ];
+    public $incrementing = false;
 }

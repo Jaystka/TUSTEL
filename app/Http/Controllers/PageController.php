@@ -12,6 +12,12 @@ class PageController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
+    public function dashboardAdmin()
+    {
+        return view('dashboard.index');
+    }
+
     public function dashboardOverview1()
     {
         return view('pages/dashboard-overview-1', [

@@ -12,6 +12,7 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\PembayaranController;
 use App\Http\Controllers\PengembalianController;
 use App\Http\Controllers\ReturController;
+use App\Http\Controllers\AdminController;
 use App\Models\Customer;
 
 /*
@@ -39,9 +40,8 @@ Route::middleware('loggedin')->group(function () {
 //Routing User
 Route::middleware('auth')->group(function () {
     Route::get('logout', [AuthController::class, 'logout'])->name('logout');
-    Route::get('/', [PageController::class, 'dashboardOverview1'])->name('dashboard-overview-1');
-    Route::get('dashboard-overview-2-page', [PageController::class, 'dashboardOverview2'])->name('dashboard-overview-2');
-    Route::get('dashboard-overview-3-page', [PageController::class, 'dashboardOverview3'])->name('dashboard-overview-3');
+    Route::resource('/product', ProductController::class);
+    Route::get('/', [AdminController::class, 'dashboardAdmin'])->name('dashboard');
     Route::resource('/product', ProductController::class);
     Route::resource('/rental', RentalController::class);
     Route::resource('/payment', PaymentController::class);
