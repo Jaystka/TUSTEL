@@ -53,7 +53,7 @@ class ReturController extends Controller
             $idRe = 'RE001';
         } else {
             $getId = Rental::all()->last();
-            $number = (int)substr($getId->id_rental, -1);
+            $number = (int)substr($getId->id_rental, -3);
             $new_idRe = str_pad($number + 1, 3, "0", STR_PAD_LEFT);
             $idRe = 'RE' . $new_idRe;
         };

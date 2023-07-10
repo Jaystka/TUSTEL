@@ -47,7 +47,7 @@
                                     </div>
                                 </div>
                                 <div class="text-3xl font-medium leading-8 mt-6">{{ $payment }}</div>
-                                <div class="text-base text-slate-500 mt-1">Total Penjualan</div>
+                                <div class="text-base text-slate-500 mt-1">Total Pemasukan</div>
                             </div>
                         </div>
                     </div>

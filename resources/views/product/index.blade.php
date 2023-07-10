@@ -83,15 +83,6 @@
                             <a class="flex items-center mr-3" href="{{ route('product.edit', $product->id_produk)}}">
                                 <i data-feather="check-square" class="w-4 h-4 mr-1"></i> Edit
                             </a>
-                            <form action="{{ route('product.destroy', $product->id_produk) }}" method="POST"
-                                type="button" id="formDelete">
-                                @csrf
-                                @method('DELETE')
-                                <button class="flex items-center text-danger">
-                                    <i data-feather="trash-2" class="w-4 h-4 mr-1" class="btn btn-danger"
-                                        data-confirm-delete="true"></i> Delete
-                                </button>
-                            </form>
                         </div>
                     </td>
                 </tr>

@@ -44,7 +44,16 @@ class PaymentController extends Controller
      */
     public function store(Request $request)
     {
-        payment::create($request->all());
+        $check = Payment::count();
+        if ($check == 0) {
+            $id = 'P0001';
+        } else {
+            $getId = payment::all()->last();
+            $number = (int)substr($getId->id_pembayaran, -4);
+            $new_id = str_pad($number + 1, 4, "0", STR_PAD_LEFT);
+            $id = 'P' . $new_id;
+        };
+        Payment::create(['id_pembayaran' => $id] + $request->all());
 
         return redirect()->route('payment.index')->with('success', 'payment added successfully');
     }

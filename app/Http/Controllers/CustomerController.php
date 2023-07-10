@@ -43,7 +43,16 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-        customer::create($request->all());
+        $check = Customer::count();
+        if ($check == 0) {
+            $id = 'C0001';
+        } else {
+            $getId = Customer::all()->last();
+            $number = (int)substr($getId->id_customer, -4);
+            $new_id = str_pad($number + 1, 4, "0", STR_PAD_LEFT);
+            $id = 'C' . $new_id;
+        };
+        customer::create(['id_customer' => $id] + $request->all());
 
         Alert::success('Berhasil ditambahkan')->background('#F2F2F0')->showConfirmButton('Ok', '#0b8a0b')->autoClose(3000);
         return redirect()->route('customer.index');

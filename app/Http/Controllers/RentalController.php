@@ -54,7 +54,7 @@ class RentalController extends Controller
             $idR = 'R0001';
         } else {
             $getId = Rental::all()->last();
-            $number = (int)substr($getId->id_rental, -1);
+            $number = (int)substr($getId->id_rental, -4);
             $new_idR = str_pad($number + 1, 4, "0", STR_PAD_LEFT);
             $idR = 'R' . $new_idR;
         };
@@ -68,7 +68,7 @@ class RentalController extends Controller
             $idP = 'P0001';
         } else {
             $getidP = Payment::all()->last();
-            $numberP = (int)substr($getidP->id_pembayaran, -1);
+            $numberP = (int)substr($getidP->id_pembayaran, -4);
             $new_idP = str_pad($numberP + 1, 4, "0", STR_PAD_LEFT);
             $idP = 'P' . $new_idP;
         };

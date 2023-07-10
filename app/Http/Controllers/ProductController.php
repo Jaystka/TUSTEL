@@ -36,7 +36,16 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        Product::create($request->all());
+        $check = Product::count();
+        if ($check == 0) {
+            $id = 'PR001';
+        } else {
+            $getId = Product::all()->last();
+            $number = (int)substr($getId->id_product, -4);
+            $new_id = str_pad($number + 1, 3, "0", STR_PAD_LEFT);
+            $id = 'PR' . $new_id;
+        };
+        Product::create(['id_produk' => $id] + $request->all());
 
         Alert::success('Berhasil ditambahkan')->background('#F2F2F0')->showConfirmButton('Ok', '#0b8a0b')->autoClose(3000);
         return redirect()->route('product.index');
