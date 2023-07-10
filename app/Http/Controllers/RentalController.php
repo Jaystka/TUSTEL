@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Rental;
 use App\Models\Product;
 use App\Models\Customer;
+use App\Models\Payment;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -56,11 +57,28 @@ class RentalController extends Controller
         } else {
             $getId = Rental::all()->last();
             $number = (int)substr($getId->id_rental, -1);
-            $new_ide = str_pad($number + 1, 4, "0", STR_PAD_LEFT);
-            $id = 'R' . $new_ide;
+            $new_idR = str_pad($number + 1, 4, "0", STR_PAD_LEFT);
+            $idR = 'R' . $new_idR;
         };
 
-        rental::create(['id_rental' => $id], $request->all());
+        rental::create(['id_rental' => $idR] + ['id_customer' => $request->id_customer]
+            + ['id_produk' => $request->id_produk] + ['tanggal_sewa' => $request->tanggal_sewa]
+            + ['jumlah' => $request->jumlah] + ['durasi' => $request->durasi]);
+
+        $check = Payment::count();
+        if ($check == 0) {
+            $idP = 'P0001';
+        } else {
+            $getidP = Payment::all()->last();
+            $numberP = (int)substr($getidP->id_pembayaran, -1);
+            $new_idP = str_pad($numberP + 1, 4, "0", STR_PAD_LEFT);
+            $idP = 'P' . $new_idP;
+        };
+
+        $product = Product::Where('id_produk', $request->id_produk)->get('harga');
+        $price = (int)$product->first()->harga;
+        $total = $price * (int)$request->jumlah;
+        payment::create(['id_pembayaran' => $idP] + ['id_rental' => $idR] + ['jenis' => $request->jenis] + ['total' => $total]);
 
         Alert::success('Berhasil ditambahkan')->background('#F2F2F0')->showConfirmButton('Ok', '#0b8a0b')->autoClose(3000);
         return redirect()->route('rental.index');
@@ -106,10 +124,18 @@ class RentalController extends Controller
      */
     public function destroy(string $id_rental)
     {
-        $rental = Rental::findOrFail($id_rental);
+        $check = Payment::Where('id_rental', $id_rental)->count();
+        if ($check > 0) {
+            return response()->json([
 
-        $rental->delete();
+                'error' => 'error'
 
-        return redirect()->route('rental.index')->with('success', 'rental deleted successfully');
+            ]);
+        } else {
+
+            $rental = Rental::findOrFail($id_rental);
+            $rental->delete();
+            return response()->json(['success' => 'Post created successfully.']);
+        }
     }
 }

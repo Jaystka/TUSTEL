@@ -14,7 +14,7 @@ class CreatePaymentsTable extends Migration
     public function up()
     {
         Schema::create('payments', function (Blueprint $table) {
-            $table->id('id_pembayaran');
+            $table->string('id_pembayaran')->primary();
             $table->unsignedBigInteger('id_rental');
             $table->foreign('id_rental')->references('id_rental')->on('rentals');
             $table->string('jenis');

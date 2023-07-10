@@ -84,28 +84,6 @@ class ProductController extends Controller
 
         $product->delete();
 
-        $title = 'Hapus Produk!';
-        $text = "Anda yakin ingin menghapus?";
-        confirmDelete($title, $text);
-        return view('product.index', compact('product'));
-
-        return redirect()->route('product.index')->with('success', 'Produk berhasil dihapus');
-    }
-
-    public function search(Request $request)
-    {
-        $products = Product::where([
-            ['camera', '!=', Null],
-            [function ($query) use ($request) {
-                if (($s = $request->s)) {
-                    $query->orWhere('camera', 'LIKE', '%' . $s . '%')
-                        ->orWhere('harga', 'LIKE', '%' . $s . '%')
-                        ->orderBy('created_at', 'DESC')->get();
-                }
-            }]
-        ])->paginate(10);
-
-
-        return view('product.search', compact('products'));
+        return response()->json(['success' => 'Post created successfully.']);
     }
 }

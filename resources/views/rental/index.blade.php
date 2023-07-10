@@ -42,9 +42,9 @@
                 <form action="/rental" method="GET" class="form-inline">
                     <input type="search" class="form-control w-56 box pr-10" name="search" placeholder="Search...">
                     <button type="submit">
-                    <i class="w-4 h-4 absolute my-auto inset-y-0 mr-3 right-0" data-feather="search"></i>
+                        <i class="w-4 h-4 absolute my-auto inset-y-0 mr-3 right-0" data-feather="search"></i>
                     </button>
-                    </form>
+                </form>
             </div>
         </div>
     </div>
@@ -67,7 +67,7 @@
                 @foreach ($rentals as $rental)
                 <tr class="intro-x">
                     <td class="w-40 h-10 center">
-                                {{ $rental['id_rental'] }}
+                        {{ $rental['id_rental'] }}
                     </td>
                     <td>
                         <a href="" class=" font-medium whitespace-nowrap">{{ $rental['nama'] }}</a>
@@ -77,18 +77,22 @@
                         <p>{{ $rental['camera'] }}</p>
                     </td>
                     <td class="text-center">{{ $rental['tanggal_sewa'] }}</td>
-                    <td class="text-center">{{ $rental['durasi'] == '6' ? '6 Jam' : ($rental['durasi'] == '12' ? '12 Jam': ($rental['durasi'] == '24' ? '1 Hari' : 
-                    ($rental['durasi'] == '48' ? '2 Hari' : ($rental['durasi'] == '96' ? '4 Hari' : ($rental['durasi'] == '144' ? '7 Hari' : ($rental['durasi'] == '288' ? '14 Hari' : 'Kosong')) ) )))}}</td>
+                    <td class="text-center">{{ $rental['durasi'] == '6' ? '6 Jam' : ($rental['durasi'] == '12' ? '12
+                        Jam': ($rental['durasi'] == '24' ? '1 Hari' :
+                        ($rental['durasi'] == '48' ? '2 Hari' : ($rental['durasi'] == '96' ? '4 Hari' :
+                        ($rental['durasi'] == '144' ? '7 Hari' : ($rental['durasi'] == '288' ? '14 Hari' : 'Kosong')) )
+                        )))}}</td>
                     <td class="text-center">{{ $rental['jumlah'] }}</td>
                     <td class="table-report__action w-56">
                         <div class="flex justify-center items-center">
                             <a class="flex items-center mr-3" href="{{ route('rental.edit', $rental->id_rental)}}">
                                 <i data-feather="check-square" class="w-4 h-4 mr-1"></i> Edit
                             </a>
-                            <form action="{{ route('rental.destroy', $rental->id_produk) }}" method="POST" type="button" onsubmit="return confirm('Delete?')">
+                            <form action="{{ route('rental.destroy', $rental->id_rental) }}" method="POST" type="button"
+                                id="formDelete">
                                 @csrf
                                 @method('DELETE')
-                                <button class="flex items-center text-danger" data-tw-toggle="modal" data-tw-target="#delete-confirmation-modal">
+                                <button class="flex items-center text-danger">
                                     <i data-feather="trash-2" class="w-4 h-4 mr-1"></i> Delete
                                 </button>
                             </form>
@@ -113,23 +117,68 @@
     </div>
     <!-- END: Pagination -->
 </div>
-<!-- BEGIN: Delete Confirmation Modal -->
-<div id="delete-confirmation-modal" class="modal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-body p-0">
-                <div class="p-5 text-center">
-                    <i data-feather="x-circle" class="w-16 h-16 text-danger mx-auto mt-3"></i>
-                    <div class="text-3xl mt-5">Are you sure?</div>
-                    <div class="text-slate-500 mt-2">Do you really want to delete these records? <br>This process cannot be undone.</div>
-                </div>
-                <div class="px-5 pb-8 text-center">
-                    <button type="button" data-tw-dismiss="modal" class="btn btn-outline-secondary w-24 mr-1">Cancel</button>
-                    <button type="button" class="btn btn-danger w-24">Delete</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- END: Delete Confirmation Modal -->
+@endsection
+
+@section('script')
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.0/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.12/dist/sweetalert2.all.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.12/dist/sweetalert2.min.css">
+<script>
+
+    $.ajaxSetup({
+
+        headers: {
+
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+
+        }
+
+    });
+
+    $("#formDelete").submit(function (event) {
+        event.preventDefault(); //prevent default action
+        let post_url = $(this).attr("action"); //get form action url
+        let request_method = $(this).attr("method"); //get form GET/POST method
+        let form_data = $(this).serialize(); //Encode form elements for submission
+        Swal.fire({
+            title: 'Hapus Data?',
+            text: "Data yang dihapus tidak dapat dikembalikan!",
+            icon: 'warning',
+            showDenyButton: true,
+            confirmButtonColor: '#223e8c',
+            cancelDenyColor: '#d33',
+            confirmButtonText: 'Ya, Hapus',
+            denyButtonText: 'Batal',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: post_url,
+                    type: 'POST',
+                    data: form_data,
+                    success: function (data) {
+                        if ($.isEmptyObject(data.error)) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Data Berhasil Dihapus',
+                                timer: 1500
+                            })
+
+                            location.reload();
+                        } else {
+                            Swal.fire({
+                                title: 'Batalkan Pembayaran!',
+                                text: 'Hapus Riwayat Pembayaran Untuk Melakukan Tindakan',
+                                icon: 'warning',
+                                confirmButtonText: 'OK',
+                                confirmButtonColor: 'orange'
+                            }
+                            );
+                        }
+
+                    }
+                });
+            }
+        })
+    });
+</script>
 @endsection

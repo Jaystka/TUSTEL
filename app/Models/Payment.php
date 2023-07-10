@@ -15,4 +15,6 @@ class Payment extends Model
         'jenis',
         'total'
     ];
+
+    public $incrementing = false;
 }

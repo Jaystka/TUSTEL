@@ -14,7 +14,7 @@ class CreateRentalsTable extends Migration
     public function up()
     {
         Schema::create('rentals', function (Blueprint $table) {
-            $table->string('order_number')->primary();
+            $table->string('id_rental')->primary();
             $table->unsignedBigInteger('id_customer');
             $table->foreign('id_customer')->references('id_customer')->on('customers');
             $table->unsignedBigInteger('id_produk');

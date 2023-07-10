@@ -36,7 +36,8 @@
                 </ul>
             </div>
         </div>
-        <div class="hidden md:block mx-auto text-slate-500">{{ $payments->links('vendor.pagination.customTotal') }}</div>
+        <div class="hidden md:block mx-auto text-slate-500">{{ $payments->links('vendor.pagination.customTotal') }}
+        </div>
         <div class="w-full sm:w-auto mt-3 sm:mt-0 sm:ml-auto md:ml-0">
             <div class="w-56 relative text-slate-500">
                 <input type="text" class="form-control w-56 box pr-10" name="s" placeholder="Search...">
@@ -48,7 +49,7 @@
         <table class="table table-report -mt-2">
             <thead>
                 <tr>
-                    <th class="whitespace-nowrap">ID</th>
+                    <th class="whitespace-nowrap">ID PEMBAYARAN</th>
                     <th class="whitespace-nowrap">ID RENTAL</th>
                     <th class="text-center whitespace-nowrap">NAMA PELANGGAN</th>
                     <th class="text-center whitespace-nowrap">JENIS</th>
@@ -61,7 +62,7 @@
                 <tr class="intro-x">
                     <td class="w-40 h-10 center">
                         {{ $payments['id_pembayaran'] }}
-            </td>
+                    </td>
                     <td>
                         <a href="" class=" font-medium whitespace-nowrap">{{ $payment['id_rental'] }}</a>
                         <div class="text-slate-500 text-xs whitespace-nowrap mt-0.5"></div>
@@ -71,14 +72,17 @@
                     <td class="text-center">{{ $payment['total'] }}</td>
                     <td class="table-report__action w-56">
                         <div class="flex justify-center items-center">
-                            <a class="flex items-center mr-3" href="{{ route('payment.edit', $payment->id_pembayaran)}}">
+                            <a class="flex items-center mr-3"
+                                href="{{ route('payment.edit', $payment->id_pembayaran)}}">
                                 <i data-feather="check-square" class="w-4 h-4 mr-1"></i> Edit
                             </a>
-                            <form action="{{ route('payment.destroy', $payment->id_pembayaran) }}" method="POST" type="button" onsubmit="return confirm('Delete?')">
+                            <form action="{{ route('payment.destroy', $payment->id_pembayaran) }}" method="POST"
+                                type="button" id="formDelete">
                                 @csrf
                                 @method('DELETE')
-                                <button class="flex items-center text-danger" data-tw-toggle="modal" data-tw-target="#delete-confirmation-modal">
-                                    <i data-feather="trash-2" class="w-4 h-4 mr-1" class="btn btn-danger" data-confirm-delete="true"></i> Delete
+                                <button class="flex items-center text-danger">
+                                    <i data-feather="trash-2" class="w-4 h-4 mr-1" class="btn btn-danger"
+                                        data-confirm-delete="true"></i> Delete
                                 </button>
                             </form>
                         </div>
@@ -102,23 +106,65 @@
     </div>
     <!-- END: Pagination -->
 </div>
-<!-- BEGIN: Delete Confirmation Modal -->
-<div id="delete-confirmation-modal" class="modal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-body p-0">
-                <div class="p-5 text-center">
-                    <i data-feather="x-circle" class="w-16 h-16 text-danger mx-auto mt-3"></i>
-                    <div class="text-3xl mt-5">Are you sure?</div>
-                    <div class="text-slate-500 mt-2">Do you really want to delete these records? <br>This process cannot be undone.</div>
-                </div>
-                <div class="px-5 pb-8 text-center">
-                    <button type="button" data-tw-dismiss="modal" class="btn btn-outline-secondary w-24 mr-1">Cancel</button>
-                    <button type="button" class="btn btn-danger w-24">Delete</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- END: Delete Confirmation Modal -->
+@endsection
+
+@section('script')
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.0/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.12/dist/sweetalert2.all.min.js"></script>
+<script>
+    $.ajaxSetup({
+
+        headers: {
+
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+
+        }
+
+    });
+    $("#formDelete").submit(function (event) {
+        event.preventDefault(); //prevent default action
+        let post_url = $(this).attr("action"); //get form action url
+        let request_method = $(this).attr("method"); //get form GET/POST method
+        let form_data = $(this).serialize(); //Encode form elements for submission
+        Swal.fire({
+            title: 'Hapus Data?',
+            text: "Data yang dihapus tidak dapat dikembalikan!",
+            icon: 'warning',
+            showDenyButton: true,
+            confirmButtonColor: '#223e8c',
+            cancelDenyColor: '#d33',
+            confirmButtonText: 'Ya, Hapus',
+            denyButtonText: 'Batal',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: post_url,
+                    type: request_method,
+                    data: form_data,
+                    success: function (data) {
+                        if ($.isEmptyObject(data.error)) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Data Berhasil Dihapus',
+                                timer: 1500,
+                            })
+
+                            location.reload();
+                        } else {
+                            Swal.fire({
+                                title: 'Ada Kesalahan!',
+                                text: 'Terdapat kesalahan dalam proses input',
+                                icon: 'error',
+                                confirmButtonText: 'OK',
+                                confirmButtonColor: 'orange'
+                            }
+                            );
+                        }
+
+                    }
+                });
+            }
+        });
+    });
+</script>
 @endsection
