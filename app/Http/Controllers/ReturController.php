@@ -86,8 +86,14 @@ class ReturController extends Controller
     {
         $returs = Retur::findOrFail($id_retur);
 
-        $returs->delete();
-
-        return redirect()->route('retur.index')->with('success', 'retur deleted successfully');
+        if ($returs->delete()) {
+            return response()->json([
+                'success' => 'Post deleted successfully.'
+            ]);
+        } else {
+            return response()->json([
+                'error' => 'Failed to delete post.'
+            ]);
+        }
     }
 }

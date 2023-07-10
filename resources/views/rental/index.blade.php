@@ -92,7 +92,7 @@
                                 <i data-feather="check-square" class="w-4 h-4 mr-1"></i> Edit
                             </a>
                             <form action="{{ route('rental.destroy', $rental->id_rental) }}" method="POST" type="button"
-                                id="formDelete">
+                                class="formDelete">
                                 @csrf
                                 @method('DELETE')
                                 <button class="flex items-center text-danger">
@@ -138,7 +138,7 @@
 
     });
 
-    $("#formDelete").submit(function (event) {
+    $(".formDelete").submit(function (event) {
         event.preventDefault(); //prevent default action
         let post_url = $(this).attr("action"); //get form action url
         let request_method = $(this).attr("method"); //get form GET/POST method
@@ -169,8 +169,8 @@
                             location.reload();
                         } else {
                             Swal.fire({
-                                title: 'Batalkan Pembayaran!',
-                                text: 'Hapus Riwayat Pembayaran Untuk Melakukan Tindakan',
+                                title: 'Gagal Dihapus!',
+                                text: 'Hapus Riwayat Pembayaran atau Pengembalian Untuk Melakukan Tindakan!',
                                 icon: 'warning',
                                 confirmButtonText: 'OK',
                                 confirmButtonColor: 'orange'

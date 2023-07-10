@@ -54,6 +54,7 @@
                     <th class="text-center whitespace-nowrap">NAMA PELANGGAN</th>
                     <th class="text-center whitespace-nowrap">JENIS</th>
                     <th class="text-center whitespace-nowrap">TOTAL</th>
+                    <th class="text-center whitespace-nowrap">ACTION</th>
                 </tr>
             </thead>
             <tbody>
@@ -77,7 +78,7 @@
                                 <i data-feather="check-square" class="w-4 h-4 mr-1"></i> Edit
                             </a>
                             <form action="{{ route('payment.destroy', $payment->id_pembayaran) }}" method="POST"
-                                type="button" id="formDelete">
+                                type="button" class="formDelete">
                                 @csrf
                                 @method('DELETE')
                                 <button class="flex items-center text-danger">
@@ -121,7 +122,7 @@
         }
 
     });
-    $("#formDelete").submit(function (event) {
+    $(".formDelete").submit(function (event) {
         event.preventDefault(); //prevent default action
         let post_url = $(this).attr("action"); //get form action url
         let request_method = $(this).attr("method"); //get form GET/POST method
@@ -153,7 +154,7 @@
                         } else {
                             Swal.fire({
                                 title: 'Ada Kesalahan!',
-                                text: 'Terdapat kesalahan dalam proses input',
+                                text: 'Terdapat kesalahan dalam proses hapus!',
                                 icon: 'error',
                                 confirmButtonText: 'OK',
                                 confirmButtonColor: 'orange'

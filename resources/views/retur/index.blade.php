@@ -58,6 +58,7 @@
           <th class="whitespace-nowrap">ID RENTAL</th>
           <th class="text-center whitespace-nowrap">TANGGAL KEMBALI</th>
           <th class="text-center whitespace-nowrap">DENDA</th>
+          <th class="text-center whitespace-nowrap">ACTION</th>
         </tr>
       </thead>
       <tbody>
@@ -84,8 +85,7 @@
               <a class="flex items-center mr-3" href="{{ route('retur.edit', $retur->id_retur)}}">
                 <i data-feather="check-square" class="w-4 h-4 mr-1"></i> Edit
               </a>
-              <form action="{{ route('retur.destroy', $retur->id_retur) }}" method="POST" type="button"
-                onsubmit="return confirm('Delete?')">
+              <form action="{{ route('retur.destroy', $retur->id_retur) }}" method="POST" class="formDelete">
                 @csrf
                 @method('DELETE')
                 <button class="flex items-center text-danger">
@@ -114,24 +114,64 @@
   </div>
   <!-- END: Pagination -->
 </div>
-<!-- BEGIN: Delete Confirmation Modal -->
-<div id="delete-confirmation-modal" class="modal" tabindex="-1" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-body p-0">
-        <div class="p-5 text-center">
-          <i data-feather="x-circle" class="w-16 h-16 text-danger mx-auto mt-3"></i>
-          <div class="text-3xl mt-5">Are you sure?</div>
-          <div class="text-slate-500 mt-2">Do you really want to delete these records? <br>This process cannot be
-            undone.</div>
-        </div>
-        <div class="px-5 pb-8 text-center">
-          <button type="button" data-tw-dismiss="modal" class="btn btn-outline-secondary w-24 mr-1">Cancel</button>
-          <button type="button" class="btn btn-danger w-24">Delete</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- END: Delete Confirmation Modal -->
+@endsection
+@section('script')
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.0/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.12/dist/sweetalert2.all.min.js"></script>
+<script>
+  $.ajaxSetup({
+
+        headers: {
+
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+
+        }
+
+    });
+    $(".formDelete").submit(function (event) {
+        event.preventDefault(); //prevent default action
+        let post_url = $(this).attr("action"); //get form action url
+        let request_method = $(this).attr("method"); //get form GET/POST method
+        let form_data = $(this).serialize(); //Encode form elements for submission
+        Swal.fire({
+            title: 'Hapus Data?',
+            text: "Data yang dihapus tidak dapat dikembalikan!",
+            icon: 'warning',
+            showDenyButton: true,
+            confirmButtonColor: '#223e8c',
+            cancelDenyColor: '#d33',
+            confirmButtonText: 'Ya, Hapus',
+            denyButtonText: 'Batal',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: post_url,
+                    type: request_method,
+                    data: form_data,
+                    success: function (data) {
+                        if ($.isEmptyObject(data.error)) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Data Berhasil Dihapus',
+                                timer: 1500,
+                            })
+
+                            location.reload();
+                        } else {
+                            Swal.fire({
+                                title: 'Ada Kesalahan!',
+                                text: 'Terdapat kesalahan dalam proses!',
+                                icon: 'error',
+                                confirmButtonText: 'OK',
+                                confirmButtonColor: 'orange'
+                            }
+                            );
+                        }
+
+                    }
+                });
+            }
+        });
+    });
+</script>
 @endsection

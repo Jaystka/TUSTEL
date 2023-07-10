@@ -83,6 +83,15 @@
                             <a class="flex items-center mr-3" href="{{ route('product.edit', $product->id_produk)}}">
                                 <i data-feather="check-square" class="w-4 h-4 mr-1"></i> Edit
                             </a>
+                            <form action="{{ route('product.destroy', $product->id_produk) }}" method="POST"
+                                type="button" class="formDelete">
+                                @csrf
+                                @method('DELETE')
+                                <button class="flex items-center text-danger">
+                                    <i data-feather="trash-2" class="w-4 h-4 mr-1" class="btn btn-danger"
+                                        data-confirm-delete="true"></i> Delete
+                                </button>
+                            </form>
                         </div>
                     </td>
                 </tr>
@@ -119,7 +128,7 @@
         }
 
     });
-    $("#formDelete").submit(function (event) {
+    $(".formDelete").submit(function (event) {
         event.preventDefault(); //prevent default action
         let post_url = $(this).attr("action"); //get form action url
         let request_method = $(this).attr("method"); //get form GET/POST method

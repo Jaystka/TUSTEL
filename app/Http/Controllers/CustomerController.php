@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Customer;
+use App\Models\Rental;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class CustomerController extends Controller
@@ -97,9 +98,17 @@ class CustomerController extends Controller
     public function destroy(string $id_customer)
     {
         $customers = Customer::findOrFail($id_customer);
+        $check = Rental::Where('id_customer', $id_customer)->count();
 
-        $customers->delete();
-
-        return response()->json(['success' => 'Post created successfully.']);
+        if ($check == 0) {
+            $customers->delete();
+            return response()->json([
+                'success' => 'Post deleted successfully.'
+            ]);
+        } else {
+            return response()->json([
+                'error' => 'Failed to delete post.'
+            ]);
+        }
     }
 }
