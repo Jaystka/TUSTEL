@@ -50,7 +50,17 @@ class RentalController extends Controller
      */
     public function store(Request $request)
     {
-        rental::create($request->all());
+        $check = Rental::count();
+        if ($check == 0) {
+            $id = 'R0001';
+        } else {
+            $getId = Rental::all()->last();
+            $number = (int)substr($getId->id_rental, -1);
+            $new_ide = str_pad($number + 1, 4, "0", STR_PAD_LEFT);
+            $id = 'R' . $new_ide;
+        };
+
+        rental::create(['id_rental' => $id], $request->all());
 
         Alert::success('Berhasil ditambahkan')->background('#F2F2F0')->showConfirmButton('Ok', '#0b8a0b')->autoClose(3000);
         return redirect()->route('rental.index');
