@@ -59,6 +59,7 @@
                     <th class="text-center whitespace-nowrap">TANGGAL SEWA</th>
                     <th class="text-center whitespace-nowrap">DURASI</th>
                     <th class="text-center whitespace-nowrap">JUMLAH</th>
+                    <th class="text-center whitespace-nowrap">STATUS</th>
                     <th class="text-center whitespace-nowrap">ACTION</th>
                 </tr>
             </thead>
@@ -83,6 +84,8 @@
                         ($rental['durasi'] == '144' ? '7 Hari' : ($rental['durasi'] == '288' ? '14 Hari' : 'Kosong')) )
                         )))}}</td>
                     <td class="text-center">{{ $rental['jumlah'] }}</td>
+                    <td class="text-center">{{ $rental['status'] == '0' ? 'Sewa' : ($rental['status'] == '1' ? 'Kembali'
+                        : '') }}</td>
                     <td class="table-report__action w-56">
                         <div class="flex justify-center items-center">
                             <a class="flex items-center mr-3" href="{{ route('rental.edit', $rental->id_rental)}}">

@@ -22,6 +22,7 @@ class CreateRentalsTable extends Migration
             $table->date('tanggal_sewa');
             $table->integer('jumlah');
             $table->string('durasi');
+            $table->integer('status');
             $table->timestamps();
         });
     }

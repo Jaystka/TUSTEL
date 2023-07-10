@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Request\LoginRequest;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Http\Request;
 
 
 class AuthController extends Controller
@@ -29,7 +33,7 @@ class AuthController extends Controller
      */
     public function login(LoginRequest $request)
     {
-        if (!\Auth::attempt([
+        if (Auth::attempt([
             'email' => $request->email,
             'password' => $request->password
         ])) {
@@ -45,7 +49,7 @@ class AuthController extends Controller
      */
     public function logout()
     {
-        \Auth::logout();
+        Auth::logout();
         return redirect('login');
     }
 }

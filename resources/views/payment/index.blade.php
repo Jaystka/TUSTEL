@@ -61,7 +61,7 @@
                 @foreach ($payments as $payment)
                 <tr class="intro-x">
                     <td class="w-40 h-10 center">
-                        {{ $payments['id_pembayaran'] }}
+                        {{ $payment['id_pembayaran'] }}
                     </td>
                     <td>
                         <a href="" class=" font-medium whitespace-nowrap">{{ $payment['id_rental'] }}</a>

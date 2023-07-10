@@ -15,4 +15,5 @@ class Customer extends Model
         'alamat',
         'no_telp',
     ];
+    public $incrementing = false;
 }

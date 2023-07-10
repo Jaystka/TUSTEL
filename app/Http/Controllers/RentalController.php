@@ -53,7 +53,7 @@ class RentalController extends Controller
     {
         $check = Rental::count();
         if ($check == 0) {
-            $id = 'R0001';
+            $idR = 'R0001';
         } else {
             $getId = Rental::all()->last();
             $number = (int)substr($getId->id_rental, -1);

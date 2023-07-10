@@ -4,13 +4,16 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Payment;
+use App\Models\Rental;
+use App\Models\Customer;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class PaymentController extends Controller
 {
     public function index()
     {
-        $payments = Payment::orderBy('created_at', 'DESC')->paginate(10);
+        $payments = Payment::orderBy('created_at', 'DESC')
+            ->paginate(10);
 
         return view('payment.index', compact('payments'));
     }

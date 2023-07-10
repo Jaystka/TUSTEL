@@ -15,19 +15,28 @@
             @csrf
             <div class="intro-y box p-5">
                 <div>
-                    <label for="id_rental" class="form-label">ID Rental</label>
-                    <input id="id_rental" name="id_rental" type="text" class="form-control w-full" placeholder="Masukkan Id Rental" required>
+                    <label for="id_rental" class="form-label">Nama Pelanggan</label>
+                    <select data-placeholder="Pilih Pelanggan" class="tom-select w-full" id="camera" name="id_rental"
+                        required>
+                        <option disabled selected> -- Pilih Pelanggan -- </option>
+                        @foreach($rentals as $rental)
+                        <option value="{{ $rental->id_rental}}">{{ $rental->nama }}</option>
+                        @endforeach
+                    </select>
                 </div>
                 <div class="mt-3">
                     <label for="date" class="form-label">Tanggal Pengembalian</label>
-                    <input type="datetime-local" id="date" name="tanggal_kembali" class=" form-control" data-single-mode="true" required>
+                    <input type="datetime-local" id="date" name="tanggal_kembali" class=" form-control"
+                        data-single-mode="true" required>
                 </div>
                 <div class="mt-3">
                     <label for="denda" class="form-label">Denda</label>
-                    <input id="denda" name="denda" type="text" class="form-control w-full" placeholder="Masukkan Jumlah Denda" required>
+                    <input id="denda" name="denda" type="text" class="form-control w-full"
+                        placeholder="Masukkan Jumlah Denda" required>
                 </div>
                 <div class="text-right mt-5">
-                    <a type="button" class="btn btn-outline-secondary w-24 mr-1" href="{{ route('retur.index') }}">Cancel</a>
+                    <a type="button" class="btn btn-outline-secondary w-24 mr-1"
+                        href="{{ route('retur.index') }}">Cancel</a>
                     <button class="btn btn-primary w-24">Save</button>
                 </div>
             </div>

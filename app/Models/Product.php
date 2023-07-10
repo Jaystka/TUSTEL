@@ -16,4 +16,5 @@ class Product extends Model
         'jumlah',
         'describe'
     ];
+    public $incrementing = false;
 }

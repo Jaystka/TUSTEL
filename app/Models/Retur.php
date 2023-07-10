@@ -15,4 +15,5 @@ class Retur extends Model
         'tanggal_kembali',
         'denda'
     ];
+    public $incrementing = false;
 }

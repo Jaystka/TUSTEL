@@ -55,12 +55,20 @@ class SideMenu
                 'title' => 'Produk'
             ],
             'customer' => [
-                'icon' => 'user',
+                'icon' => 'users',
                 'route_name' => 'customer.index',
                 'params' => [
                     'layout' => 'side-menu'
                 ],
                 'title' => 'Customer'
+            ],
+            'user' => [
+                'icon' => 'user',
+                'route_name' => 'user.index',
+                'params' => [
+                    'layout' => 'side-menu'
+                ],
+                'title' => 'Users'
             ],
         ];
     }
