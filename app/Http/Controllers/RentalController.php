@@ -13,9 +13,7 @@ class RentalController extends Controller
 {
     public function index(Request $request)
     {
-        // $foods = Food::join('food_ingredient', 'food_ingredient.food_id','=', 'food.id')
-        //  ->join('ingredients','ingredient.id','=','food_ingredient.ingredient.id')
-        //  ->where('ingredient.title', 'LIKE', '%' . $search . '%') ...
+  
         if ($request->has('search')) {
             $rentals = Rental::join('products', 'products.id_produk', '=', 'rentals.id_produk')
                 ->join('customers', 'customers.id_customer', '=', 'rentals.id_customer')
