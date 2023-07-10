@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Retur;
+use App\Models\Rental;
+use App\Models\Customer;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class ReturController extends Controller
@@ -11,6 +13,9 @@ class ReturController extends Controller
     public function index()
     {
         $returs = Retur::orderByDesc('returs.created_at')
+        ->join('rentals', 'returs.id_rental', '=', 'rentals.id_rental')
+        ->join('customers', 'rentals.id_customer', '=','customers.id_customer')
+        ->select('returs.id_rental','customers.nama','returs.tanggal_kembali', 'returs.denda','returs.id_retur')
             ->paginate(10);
 
         return view('retur.index', compact('returs'));
@@ -38,9 +43,9 @@ class ReturController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id_customer)
+    public function show(string $id_retur)
     {
-        $returs = Retur::findOrFail($id_customer);
+        $returs = Retur::findOrFail($id_retur);
 
         return view('retur.show', compact('returs'));
     }
@@ -48,19 +53,21 @@ class ReturController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id_customer)
+    public function edit(string $id_retur)
     {
-        $returs = Retur::findOrFail($id_customer);
+        $retur = Retur::findOrFail($id_retur);
+        $customers = Customer::where('id_customer', $retur->id_customer)->get();
+        $rentals = Rental::get();
 
-        return view('retur.edit', compact('returs'));
+        return view('retur.edit', compact('retur', 'rentals','customers'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id_customer)
+    public function update(Request $request, string $id_retur)
     {
-        $returs = Retur::findOrFail($id_customer);
+        $returs = Retur::findOrFail($id_retur);
 
         $returs->update($request->all());
 
@@ -71,9 +78,9 @@ class ReturController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id_customer)
+    public function destroy(string $id_retur)
     {
-        $returs = Retur::findOrFail($id_customer);
+        $returs = Retur::findOrFail($id_retur);
 
         $returs->delete();
 
