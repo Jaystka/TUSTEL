@@ -16,7 +16,8 @@ class UserController extends Controller
     public function index(Request $request)
     {
         if ($request->has('search')) {
-            $users = User::where('camera', 'like', '%' . $request->search . '%')->paginate(10);
+            $users = User::where('name', 'like', '%' . $request->search . '%')
+            ->paginate(10);
         } else {
             $users = User::orderBy('created_at', 'DESC')->paginate(10);
         }

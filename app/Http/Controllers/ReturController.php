@@ -10,13 +10,23 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class ReturController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $returs = Retur::orderByDesc('returs.created_at')
+        if ($request->has('search')) {
+            $returs = Retur::join('rentals', 'returs.id_rental', '=', 'rentals.id_rental')
+                ->join('customers', 'rentals.id_customer', '=', 'customers.id_customer')
+                ->where('customers.nama', 'like', '%' . $request->search . '%')
+                ->paginate(10);
+        } else {
+
+            $returs = Retur::orderByDesc('returs.created_at')
             ->join('rentals', 'returs.id_rental', '=', 'rentals.id_rental')
             ->join('customers', 'rentals.id_customer', '=', 'customers.id_customer')
             ->select('returs.id_rental', 'customers.nama', 'returs.tanggal_kembali', 'returs.denda', 'returs.id_retur')
             ->paginate(10);
+        }
+
+
 
         return view('retur.index', compact('returs'));
     }

@@ -10,10 +10,23 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class PaymentController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $payments = Payment::orderBy('created_at', 'DESC')
+
+        if ($request->has('search')) {
+            $payments = Payment::join('rentals', 'payments.id_rental', '=', 'rentals.id_rental')
+                ->join('customers', 'rentals.id_customer', '=', 'customers.id_customer')
+                ->where('customers.nama', 'like', '%' . $request->search . '%')
+                ->orWhere('jenis', 'like', '%' . $request->search . '%')
+                ->paginate(10);
+        } else {
+
+            $payments = Payment::orderBy('created_at', 'DESC')
+            ->join('rentals', 'payments.id_rental', '=', 'rentals.id_rental')
+            ->join('customers', 'rentals.id_customer', '=', 'customers.id_customer')
+            ->select('payments.*', 'customers.nama')
             ->paginate(10);
+        }
 
         return view('payment.index', compact('payments'));
     }

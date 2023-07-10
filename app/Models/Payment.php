@@ -13,7 +13,8 @@ class Payment extends Model
         'id_pembayaran',
         'id_rental',
         'jenis',
-        'total'
+        'total',
+        'created_at'
     ];
 
     public $incrementing = false;
