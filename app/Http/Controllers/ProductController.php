@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use RealRashid\SweetAlert\Facades\Alert;
+use Barryvdh\DomPDF\PDF;
 
 
 class ProductController extends Controller
@@ -41,7 +42,7 @@ class ProductController extends Controller
             $id = 'PR001';
         } else {
             $getId = Product::all()->last();
-            $number = (int)substr($getId->id_product, -4);
+            $number = (int)substr($getId->id_produk, -3);
             $new_id = str_pad($number + 1, 3, "0", STR_PAD_LEFT);
             $id = 'PR' . $new_id;
         };
@@ -94,5 +95,17 @@ class ProductController extends Controller
         $product->delete();
 
         return response()->json(['success' => 'Post created successfully.']);
+    }
+
+    public function print(Request $request)
+    {
+        if ($request->has('search')) {
+            $products = Product::where('camera', 'like', '%' . $request->search . '%')->paginate(10);
+        } else {
+            $products = Product::orderBy('created_at', 'DESC')->paginate(10);
+        }
+
+        $pdf = PDF::loadview('pegawai_pdf', ['pegawai' => 'haha']);
+        return $pdf->download('laporan.pdf');
     }
 }

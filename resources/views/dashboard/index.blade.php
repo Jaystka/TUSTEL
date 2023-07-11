@@ -85,7 +85,7 @@
                                 <th class="whitespace-nowrap">NAMA PELANGGAN</th>
                                 <th class="text-center whitespace-nowrap">DURASI</th>
                                 <th class="text-center whitespace-nowrap">TANGGAL SEWA</th>
-                                <th class="text-center whitespace-nowrap">ACTIONS</th>
+                                <th class="text-center whitespace-nowrap">JUMLAH</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -111,12 +111,8 @@
                                 </td>
                                 <td class="table-report__action w-40">
                                     <div class="flex justify-center items-center">
-                                        <a class="flex items-center mr-3" href="">
-                                            <i data-feather="check-square" class="w-4 h-4 mr-1"></i> Edit
-                                        </a>
-                                        <a class="flex items-center text-danger" href="">
-                                            <i data-feather="trash-2" class="w-4 h-4 mr-1"></i> Delete
-                                        </a>
+                                        {{
+                                        $rentall['jumlah'] }}
                                     </div>
                                 </td>
                             </tr>

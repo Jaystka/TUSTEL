@@ -83,16 +83,6 @@ class RentalController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(string $id_rental)
-    {
-        $rental = Rental::findOrFail($id_rental);
-
-        return view('rental.show', compact('rental'));
-    }
-
-    /**
      * Show the form for editing the specified resource.
      */
     public function edit(string $id_rental)

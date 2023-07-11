@@ -59,16 +59,6 @@ class PaymentController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(string $id_pembayaran)
-    {
-        $payment = Payment::findOrFail($id_pembayaran);
-
-        return view('payment.show', compact('payment'));
-    }
-
-    /**
      * Show the form for editing the specified resource.
      */
     public function edit(string $id_pembayaran)

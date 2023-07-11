@@ -13,7 +13,7 @@ class AdminController extends Controller
 {
     public function dashboardAdmin()
     {
-        $rental = Rental::count();
+        $rental = Rental::Where('status', '=', '0')->count();
         $customer = Customer::count();
         $product = Product::count();
         $payment = Payment::whereMonth('created_at', date('m'))

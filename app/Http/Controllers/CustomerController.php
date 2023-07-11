@@ -59,15 +59,6 @@ class CustomerController extends Controller
         return redirect()->route('customer.index');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id_customer)
-    {
-        $customers = Customer::findOrFail($id_customer);
-
-        return view('customer.show', compact('customers'));
-    }
 
     /**
      * Show the form for editing the specified resource.
