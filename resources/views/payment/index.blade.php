@@ -92,79 +92,6 @@
                 </button>
               </form>
             </div>
-<<<<<<< HEAD
-        </div>
-        <div class="hidden md:block mx-auto text-slate-500">{{ $payments->links('vendor.pagination.customTotal') }}
-        </div>
-        <div class="w-full sm:w-auto mt-3 sm:mt-0 sm:ml-auto md:ml-0">
-            <div class="w-56 relative text-slate-500">
-                <input type="text" class="form-control w-56 box pr-10" name="s" placeholder="Search...">
-            </div>
-        </div>
-    </div>
-    <!-- BEGIN: Data List -->
-    <div class="intro-y col-span-12 overflow-auto lg:overflow-visible">
-        <table class="table table-report -mt-2">
-            <thead>
-                <tr>
-                    <th class="whitespace-nowrap">ID PEMBAYARAN</th>
-                    <th class="whitespace-nowrap">ID RENTAL</th>
-                    <th class="text-center whitespace-nowrap">NAMA PELANGGAN</th>
-                    <th class="text-center whitespace-nowrap">JENIS</th>
-                    <th class="text-center whitespace-nowrap">TOTAL</th>
-                    <th class="text-center whitespace-nowrap">ACTION</th>
-                </tr>
-            </thead>
-            <tbody>
-                @if($payments->count() > 0)
-                @foreach ($payments as $payment)
-                <tr class="intro-x">
-                    <td class="w-40 h-10 center">
-                        {{ $payment['id_pembayaran'] }}
-                    </td>
-                    <td>
-                        <a href="" class=" font-medium whitespace-nowrap">{{ $payment['id_rental'] }}</a>
-                        <div class="text-slate-500 text-xs whitespace-nowrap mt-0.5"></div>
-                    </td>
-                    <td class="text-center">{{ $payment['nama'] }}</td>
-                    <td class="text-center">{{ $payment['jenis'] }}</td>
-                    <td class="text-center">{{ $payment['total'] }}</td>
-                    <td class="table-report__action w-56">
-                        <div class="flex justify-center items-center">
-                            <a class="flex items-center mr-3"
-                                href="{{ route('payment.edit', $payment->id_pembayaran)}}">
-                                <i data-feather="check-square" class="w-4 h-4 mr-1"></i> Edit
-                            </a>
-                            <form action="{{ route('payment.destroy', $payment->id_pembayaran) }}" method="POST"
-                                type="button" class="formDelete">
-                                @csrf
-                                @method('DELETE')
-                                <button class="flex items-center text-danger">
-                                    <i data-feather="trash-2" class="w-4 h-4 mr-1" class="btn btn-danger"
-                                        data-confirm-delete="true"></i> Delete
-                                </button>
-                            </form>
-                        </div>
-                    </td>
-                </tr>
-                @endforeach
-                @else
-                <tr>
-                    <td class="text-center" colspan="5">
-                        payment not found
-                    </td>
-                </tr>
-                @endif
-            </tbody>
-        </table>
-    </div>
-    <!-- END: Data List -->
-    <!-- BEGIN: Pagination -->
-    <div class="intro-y col-span-12 flex flex-wrap sm:flex-row sm:flex-nowrap items-center">
-        {{ $payments->links('vendor.pagination.customLinks') }}
-    </div>
-    <!-- END: Pagination -->
-=======
           </td>
         </tr>
         @endforeach
@@ -184,7 +111,6 @@
     {{ $payments->links('vendor.pagination.customLinks') }}
   </div>
   <!-- END: Pagination -->
->>>>>>> 29180ff471b7a2777d753510b76f3da8524f0d15
 </div>
 @endsection
 

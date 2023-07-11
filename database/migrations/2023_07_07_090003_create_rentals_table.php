@@ -19,7 +19,7 @@ class CreateRentalsTable extends Migration
             $table->foreign('id_customer')->references('id_customer')->on('customers');
             $table->unsignedBigInteger('id_produk');
             $table->foreign('id_produk')->references('id_produk')->on('products');
-            $table->date('tanggal_sewa');
+            $table->datetime('tanggal_sewa');
             $table->integer('jumlah');
             $table->string('durasi');
             $table->integer('status');

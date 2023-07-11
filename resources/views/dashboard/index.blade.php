@@ -11,7 +11,7 @@
             <!-- BEGIN: General Report -->
             <div class="col-span-12 mt-8">
                 <div class="intro-y flex items-center h-10">
-                    <h2 class="text-lg font-medium truncate mr-5">General Report</h2>
+                    <a class="btn btn-primary shadow-md mr-2" href="{{ route('rental.create') }}">Tambah Rental</a>
                     <a href="" class="ml-auto flex items-center text-primary">
                         <i data-feather="refresh-ccw" class="w-4 h-4 mr-3"></i> Reload Data
                     </a>
@@ -72,10 +72,68 @@
                 </div>
             </div>
             <!-- END: General Report -->
+            <!-- BEGIN: Weekly Top Seller -->
+            <div class="col-span-12 sm:col-span-6 lg:col-span-6 mt-8">
+                <!-- BEGIN: Weekly Top Products -->
+                <div class="intro-y block sm:flex items-center h-10">
+                    <h2 class="text-lg font-medium truncate mr-5">Rental Aktif</h2>
+                </div>
+                <div class="intro-y overflow-auto lg:overflow-visible mt-8 sm:mt-0">
+                    <table class="table table-report sm:mt-2">
+                        <thead>
+                            <tr>
+                                <th class="whitespace-nowrap">NAMA PELANGGAN</th>
+                                <th class="text-center whitespace-nowrap">DURASI</th>
+                                <th class="text-center whitespace-nowrap">TANGGAL SEWA</th>
+                                <th class="text-center whitespace-nowrap">ACTIONS</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($rentals as $rentall)
+                            <tr class="intro-x">
+                                <td>
+                                    <a href="" class="font-medium whitespace-nowrap">{{ $rentall['nama']
+                                        }}</a>
+                                    <div class="text-slate-500 text-xs whitespace-nowrap mt-0.5">{{
+                                        $rentall['camera'] }}</div>
+                                </td>
+                                <td class="text-center">{{ $rentall['durasi'] == '6' ? '6 Jam' : ($rentall['durasi'] ==
+                                    '12' ? '12
+                                    Jam': ($rentall['durasi'] == '24' ? '1 Hari' :
+                                    ($rentall['durasi'] == '48' ? '2 Hari' : ($rentall['durasi'] == '96' ? '4 Hari' :
+                                    ($rentall['durasi'] == '144' ? '7 Hari' : ($rentall['durasi'] == '288' ? '14 Hari' :
+                                    'Kosong')) )
+                                    )))}}</td>
+                                <td class="w-80">
+                                    <div class="text-center">{{
+                                        $rentall['tanggal_sewa'] }}
+                                    </div>
+                                </td>
+                                <td class="table-report__action w-40">
+                                    <div class="flex justify-center items-center">
+                                        <a class="flex items-center mr-3" href="">
+                                            <i data-feather="check-square" class="w-4 h-4 mr-1"></i> Edit
+                                        </a>
+                                        <a class="flex items-center text-danger" href="">
+                                            <i data-feather="trash-2" class="w-4 h-4 mr-1"></i> Delete
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+                <div class="intro-y flex flex-wrap sm:flex-row sm:flex-nowrap items-center mt-3">
+                    {{ $rentals->links('vendor.pagination.customLinks') }}
+                </div>
+                <!-- END: Weekly Top Products -->
+            </div>
+            <!-- END: Sales Report -->
             <!-- BEGIN: Sales Report -->
             <div class="col-span-12 lg:col-span-6 mt-8">
                 <div class="intro-y block sm:flex items-center h-10">
-                    <h2 class="text-lg font-medium truncate mr-5">Sales Report</h2>
+                    <h2 class="text-lg font-medium truncate mr-5">Laporan Rental</h2>
                 </div>
                 <div class="intro-y box p-5 mt-12 sm:mt-5">
                     <div class="flex flex-col xl:flex-row xl:items-center">
@@ -98,62 +156,6 @@
                     </div>
                     <div class="report-chart">
                         <canvas id="report-line-char" height="169" class="mt-6"></canvas>
-                    </div>
-                </div>
-            </div>
-            <!-- END: Sales Report -->
-            <!-- BEGIN: Weekly Top Seller -->
-            <div class="col-span-12 sm:col-span-6 lg:col-span-3 mt-8">
-                <div class="intro-y flex items-center h-10">
-                    <h2 class="text-lg font-medium truncate mr-5">Weekly Top Seller</h2>
-                    <a href="" class="ml-auto text-primary truncate">Show More</a>
-                </div>
-                <div class="intro-y box p-5 mt-5">
-                    <canvas class="mt-3" id="report-pie-chart" height="300"></canvas>
-                    <div class="mt-8">
-                        <div class="flex items-center">
-                            <div class="w-2 h-2 bg-primary rounded-full mr-3"></div>
-                            <span class="truncate">17 - 30 Years old</span>
-                            <span class="font-medium xl:ml-auto">62%</span>
-                        </div>
-                        <div class="flex items-center mt-4">
-                            <div class="w-2 h-2 bg-pending rounded-full mr-3"></div>
-                            <span class="truncate">31 - 50 Years old</span>
-                            <span class="font-medium xl:ml-auto">33%</span>
-                        </div>
-                        <div class="flex items-center mt-4">
-                            <div class="w-2 h-2 bg-warning rounded-full mr-3"></div>
-                            <span class="truncate">>= 50 Years old</span>
-                            <span class="font-medium xl:ml-auto">10%</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- END: Weekly Top Seller -->
-            <!-- BEGIN: Sales Report -->
-            <div class="col-span-12 sm:col-span-6 lg:col-span-3 mt-8">
-                <div class="intro-y flex items-center h-10">
-                    <h2 class="text-lg font-medium truncate mr-5">Sales Report</h2>
-                    <a href="" class="ml-auto text-primary truncate">Show More</a>
-                </div>
-                <div class="intro-y box p-5 mt-5">
-                    <canvas class="mt-3" id="report-donut-chart" height="300"></canvas>
-                    <div class="mt-8">
-                        <div class="flex items-center">
-                            <div class="w-2 h-2 bg-primary rounded-full mr-3"></div>
-                            <span class="truncate">17 - 30 Years old</span>
-                            <span class="font-medium xl:ml-auto">62%</span>
-                        </div>
-                        <div class="flex items-center mt-4">
-                            <div class="w-2 h-2 bg-pending rounded-full mr-3"></div>
-                            <span class="truncate">31 - 50 Years old</span>
-                            <span class="font-medium xl:ml-auto">33%</span>
-                        </div>
-                        <div class="flex items-center mt-4">
-                            <div class="w-2 h-2 bg-warning rounded-full mr-3"></div>
-                            <span class="truncate">>= 50 Years old</span>
-                            <span class="font-medium xl:ml-auto">10%</span>
-                        </div>
                     </div>
                 </div>
             </div>

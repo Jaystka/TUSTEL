@@ -14,8 +14,9 @@ class ColorSchemeComposer
      */
     public function compose(View $view)
     {
-        $view->with('color_scheme',
-            session()->has('color_scheme') ? session('color_scheme') : "default"
+        $view->with(
+            'color_scheme',
+            session()->has('color_scheme') ? session('color_scheme') : "theme-3"
         );
     }
 }

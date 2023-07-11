@@ -24,10 +24,16 @@ class AdminController extends Controller
             ->whereYear('created_at', date('Y'))
             ->groupBy(Payment::raw("MONTH(created_at)"), "created_at")
             ->pluck('totals', 'month_name');
+        $rentals = Rental::Where('status', '=', '0')
+            ->orderByDesc('rentals.created_at')
+            ->join('products', 'products.id_produk', '=', 'rentals.id_produk')
+            ->join('customers', 'customers.id_customer', '=', 'rentals.id_customer')
+            ->select('rentals.*', 'products.camera', 'customers.nama')
+            ->paginate(5);
 
         $labels = $total->keys();
         $data = $total->values();
 
-        return view('dashboard.index', compact('rental', 'customer', 'payment', 'product', 'lastPayment', 'data', 'labels'));
+        return view('dashboard.index', compact('rental', 'customer', 'payment', 'product', 'lastPayment', 'data', 'labels', 'rentals'));
     }
 }
