@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use RealRashid\SweetAlert\Facades\Alert;
-use Barryvdh\DomPDF\PDF;
-
+use Barryvdh\DomPDF\Facade\Pdf;
+use Carbon\Carbon;
 
 class ProductController extends Controller
 {
@@ -53,16 +53,6 @@ class ProductController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(string $id_produk)
-    {
-        $product = Product::findOrFail($id_produk);
-
-        return view('product.show', compact('product'));
-    }
-
-    /**
      * Show the form for editing the specified resource.
      */
     public function edit(string $id_produk)
@@ -97,15 +87,18 @@ class ProductController extends Controller
         return response()->json(['success' => 'Post created successfully.']);
     }
 
-    public function print(Request $request)
+    public function print_pdf(Request $request)
     {
-        if ($request->has('search')) {
-            $products = Product::where('camera', 'like', '%' . $request->search . '%')->paginate(10);
-        } else {
-            $products = Product::orderBy('created_at', 'DESC')->paginate(10);
-        }
 
-        $pdf = PDF::loadview('pegawai_pdf', ['pegawai' => 'haha']);
-        return $pdf->download('laporan.pdf');
+        if ($request->has('search')) {
+            $products = Product::where('camera', 'like', '%' . $request->search . '%');
+        } else {
+            $products = Product::orderBy('created_at', 'DESC');
+        }
+        $products = Product::orderBy('created_at', 'DESC')->get();
+        $time = Carbon::now()->timezone('UTC');
+
+        $pdf = PDF::loadview('product.print', ['products' => $products], ['time' => $time]);
+        return $pdf->stream();
     }
 }

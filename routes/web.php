@@ -9,12 +9,11 @@ use App\Http\Controllers\RentalController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\CustomerController;
-use App\Http\Controllers\PembayaranController;
-use App\Http\Controllers\PengembalianController;
 use App\Http\Controllers\ReturController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
 use App\Models\Customer;
+use App\Models\Product;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,8 +40,9 @@ Route::middleware('loggedin')->group(function () {
 //Routing User
 Route::middleware('auth')->group(function () {
     Route::get('logout', [AuthController::class, 'logout'])->name('logout');
-    Route::resource('/product', ProductController::class);
-    Route::get('/', [AdminController::class, 'dashboardAdmin'])->name('dashboard');
+    Route::get('/paginate', [AdminController::class, 'paginationHome']);
+    Route::get('/', [AdminController::class, 'index'])->name('dashboard');
+    Route::get('/product/print', [ProductController::class, 'print_pdf'])->name('product.print');
     Route::resource('/product', ProductController::class);
     Route::resource('/rental', RentalController::class);
     Route::resource('/payment', PaymentController::class);

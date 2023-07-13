@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
-    public function dashboardAdmin()
+    public function index()
     {
         $rental = Rental::Where('status', '=', '0')->count();
         $customer = Customer::count();
@@ -35,5 +35,18 @@ class AdminController extends Controller
         $data = $total->values();
 
         return view('dashboard.index', compact('rental', 'customer', 'payment', 'product', 'lastPayment', 'data', 'labels', 'rentals'));
+    }
+
+    function paginationHome(Request $request)
+    {
+        if ($request->ajax()) {
+            $rentals = Rental::Where('status', '=', '0')
+                ->orderByDesc('rentals.created_at')
+                ->join('products', 'products.id_produk', '=', 'rentals.id_produk')
+                ->join('customers', 'customers.id_customer', '=', 'rentals.id_customer')
+                ->select('rentals.*', 'products.camera', 'customers.nama')
+                ->paginate(5);
+        }
+        return view('dashboard.paginate', compact('rentals'))->render();
     }
 }

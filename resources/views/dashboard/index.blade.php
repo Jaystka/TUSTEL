@@ -73,13 +73,13 @@
             </div>
             <!-- END: General Report -->
             <!-- BEGIN: Weekly Top Seller -->
-            <div class="col-span-12 sm:col-span-6 lg:col-span-6 mt-8">
+            <div class="col-span-12 sm:col-span-6 lg:col-span-6 mt-8 table-data">
                 <!-- BEGIN: Weekly Top Products -->
                 <div class="intro-y block sm:flex items-center h-10">
                     <h2 class="text-lg font-medium truncate mr-5">Rental Aktif</h2>
                 </div>
                 <div class="intro-y overflow-auto lg:overflow-visible mt-8 sm:mt-0">
-                    <table class="table table-report sm:mt-2">
+                    <table class="table table-report sm:mt-2 ">
                         <thead>
                             <tr>
                                 <th class="whitespace-nowrap">NAMA PELANGGAN</th>
@@ -165,8 +165,13 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.0/dist/chart.umd.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.0/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
-<script src="./dist/js/colors.js"></script>
-<script src="./dist/js/helper.js"></script>
+<script>
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+</script>
 <script type="text/javascript">
     var labels = {{ Js:: from($labels) }};
     var totals = {{ Js:: from($data) }};
@@ -235,5 +240,20 @@
             });
         }
     })();
+    //pagination
+    $(document).on('click','.pagination a', function(e){
+    e.preventDefault();
+    let page = $(this).attr('href').split('page=')[1]
+    record(page)
+    })
+    
+    function record(page){
+    $.ajax({
+    url:"/paginate?page="+page,
+    success:function(res){
+    $('.table-data').html(res);
+    }
+    })
+    }
 </script>
 @endsection
