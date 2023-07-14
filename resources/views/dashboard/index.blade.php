@@ -164,7 +164,6 @@
 @section('script')
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.0/dist/chart.umd.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.0/dist/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
 <script>
     $.ajaxSetup({
         headers: {
@@ -191,7 +190,7 @@
                             label: "Tahun Ini",
                             data: totals,
                             borderWidth: 2,
-                            borderColor: "rgba(52, 152, 219, 0.8)",
+                            borderColor: "rgba(22, 78, 99, 1)",
                             backgroundColor: "transparent",
                             pointBorderColor: "transparent",
                         }
@@ -224,11 +223,11 @@
                                 },
                                 gridLines: {
                                     color: $("html").hasClass("dark")
-                                        ? "rgba(119, 152, 191, 0.3)"
-                                        : "rgba(119, 152, 191, 0.3)",
+                                        ? "rgba(22, 78, 99, 1))"
+                                        : "rgba(22, 78, 99, 1)",
                                     zeroLineColor: $("html").hasClass("dark")
-                                        ? "rgba(119, 152, 191, 0.3)"
-                                        : "rgba(119, 152, 191, 0.3)",
+                                        ? "rgba(22, 78, 99, 1)"
+                                        : "rgba(22, 78, 99, 1)",
                                     borderDash: [2, 2],
                                     zeroLineBorderDash: [2, 2],
                                     drawBorder: false,

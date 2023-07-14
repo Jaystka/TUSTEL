@@ -19,7 +19,7 @@
             <div class="dropdown-menu w-40">
                 <ul class="dropdown-content">
                     <li>
-                        <a href="{{ route('product.print') }}" class="dropdown-item">
+                        <a href="{{ route('product.print') }}" class="dropdown-item" target="_blank">
                             <i data-feather="printer" class="w-4 h-4 mr-2"></i> Print
                         </a>
                     </li>
@@ -40,7 +40,7 @@
         </div>
         <div class="w-full sm:w-auto mt-3 sm:mt-0 sm:ml-auto md:ml-0">
             <div class="w-56 relative text-slate-500">
-                <form action="/product" method="GET" class="form-inline">
+                <form action="/product/search" method="POST" class="form-inline">
                     <input type="search" class="form-control w-56 box pr-10" name="search" placeholder="Search...">
                     <button type="submit">
                         <i class="w-4 h-4 absolute my-auto inset-y-0 mr-3 right-0" data-feather="search"></i>

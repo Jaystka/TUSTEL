@@ -91,14 +91,14 @@ class ProductController extends Controller
     {
 
         if ($request->has('search')) {
-            $products = Product::where('camera', 'like', '%' . $request->search . '%');
+            $products = Product::where('camera', 'like', '%' . $request->search . '%')->get();
         } else {
-            $products = Product::orderBy('created_at', 'DESC');
+            $products = Product::orderBy('created_at', 'DESC')->get();
         }
-        $products = Product::orderBy('created_at', 'DESC')->get();
-        $time = Carbon::now()->timezone('UTC');
+        $time = Carbon::now('Asia/Jakarta');
 
         $pdf = PDF::loadview('product.print', ['products' => $products], ['time' => $time]);
         return $pdf->stream();
     }
+
 }

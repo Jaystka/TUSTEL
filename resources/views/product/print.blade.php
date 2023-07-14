@@ -4,7 +4,7 @@
 
     <head>
         <title>Membuat Laporan PDF Dengan DOMPDF Laravel</title>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
             integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     </head>
 
@@ -14,11 +14,15 @@
             table tr th {
                 font-size: 9pt;
             }
+
+            p {
+                font-size: 10pt;
+            }
         </style>
         <center>
             <h5>Data Produk Jasa Rental Kamera 'TUSTEL'</h5>
-            <p id="date">{{ $time }}</p>
         </center>
+        <p class="text-right">Waktu : {{ $time }} <br>Pengguna : {{auth()->user()->name}}</p>
 
         <table class='table table-bordered'>
             <thead>

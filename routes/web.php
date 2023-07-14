@@ -43,6 +43,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/paginate', [AdminController::class, 'paginationHome']);
     Route::get('/', [AdminController::class, 'index'])->name('dashboard');
     Route::get('/product/print', [ProductController::class, 'print_pdf'])->name('product.print');
+    Route::post('/product/search', [ProductController::class, 'search'])->name('product.search');
     Route::resource('/product', ProductController::class);
     Route::resource('/rental', RentalController::class);
     Route::resource('/payment', PaymentController::class);
