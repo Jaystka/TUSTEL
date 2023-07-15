@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Customer;
 use App\Models\Rental;
 use RealRashid\SweetAlert\Facades\Alert;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Carbon\Carbon;
 
 class CustomerController extends Controller
 {
@@ -20,16 +22,6 @@ class CustomerController extends Controller
         return view('customer.index', compact('customers'));
     }
 
-    // public function index(Request $request)
-    // {
-    //     if ($request->has('search')) {
-    //         $products = Product::where('camera', 'like', '%' . $request->search . '%')->paginate(10);
-    //     } else {
-    //         $products = Product::orderBy('created_at', 'DESC')->paginate(10);
-    //     }
-
-    //     return view('product.index', compact('products'));
-    // }
 
     /**
      * Show the form for creating a new resource.
@@ -101,5 +93,19 @@ class CustomerController extends Controller
                 'error' => 'Failed to delete post.'
             ]);
         }
+    }
+
+    public function print_pdf(Request $request)
+    {
+
+        if ($request->has('search')) {
+            $customers = Customer::where('nama', 'like', '%' . $request->search . '%')->get();
+        } else {
+            $customers = Customer::orderBy('created_at', 'DESC')->get();
+        }
+        $time = Carbon::now('Asia/Jakarta');
+
+        $pdf = PDF::loadview('customer.print', ['customers' => $customers], ['time' => $time]);
+        return $pdf->stream();
     }
 }

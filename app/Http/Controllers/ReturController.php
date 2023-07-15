@@ -7,6 +7,8 @@ use App\Models\Retur;
 use App\Models\Rental;
 use App\Models\Customer;
 use RealRashid\SweetAlert\Facades\Alert;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Carbon\Carbon;
 
 class ReturController extends Controller
 {
@@ -20,10 +22,10 @@ class ReturController extends Controller
         } else {
 
             $returs = Retur::orderByDesc('returs.created_at')
-            ->join('rentals', 'returs.id_rental', '=', 'rentals.id_rental')
-            ->join('customers', 'rentals.id_customer', '=', 'customers.id_customer')
-            ->select('returs.id_rental', 'customers.nama', 'returs.tanggal_kembali', 'returs.denda', 'returs.id_retur')
-            ->paginate(10);
+                ->join('rentals', 'returs.id_rental', '=', 'rentals.id_rental')
+                ->join('customers', 'rentals.id_customer', '=', 'customers.id_customer')
+                ->select('returs.id_rental', 'customers.nama', 'returs.tanggal_kembali', 'returs.denda', 'returs.id_retur')
+                ->paginate(10);
         }
 
 
@@ -105,5 +107,26 @@ class ReturController extends Controller
                 'error' => 'Failed to delete post.'
             ]);
         }
+    }
+
+    public function print_pdf(Request $request)
+    {
+
+        if ($request->has('search')) {
+            $returs = Retur::join('rentals', 'returs.id_rental', '=', 'rentals.id_rental')
+            ->join('customers', 'rentals.id_customer', '=', 'customers.id_customer')
+            ->where('customers.nama', 'like', '%' . $request->search . '%')
+                ->get();
+        } else {
+            $returs = Retur::orderByDesc('returs.created_at')
+            ->join('rentals', 'returs.id_rental', '=', 'rentals.id_rental')
+            ->join('customers', 'rentals.id_customer', '=', 'customers.id_customer')
+            ->select('returs.id_rental', 'customers.nama', 'returs.tanggal_kembali', 'returs.denda', 'returs.id_retur')
+            ->get();
+        }
+        $time = Carbon::now('Asia/Jakarta');
+
+        $pdf = PDF::loadview('retur.print', ['returs' => $returs], ['time' => $time]);
+        return $pdf->stream();
     }
 }

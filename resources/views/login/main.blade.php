@@ -19,9 +19,10 @@
                 <lottie-player class="-intro-x w-1/2 -mt-16"
                     src="https://assets3.lottiefiles.com/packages/lf20_xmecxk4w.json" background="transparent"
                     speed="0.75" style="width: 300px; height: 300px;" loop autoplay></lottie-player>
-                <div class="-intro-x text-white font-medium text-4xl leading-tight mt-10">Selamat Datang di Web</div>
-                <div class="-intro-x mt-5 text-lg text-white text-opacity-70 dark:text-slate-400">Halaman Admin Rental
-                    Kamera TUSTEL</div>
+                <div class="-intro-x text-white font-medium text-4xl leading-tight mt-10">Selamat Datang di Web
+                    <br><span>Rental Kamera TUSTEL</span>
+                </div>
+                <div class="-intro-x mt-5 text-lg text-white text-opacity-70 dark:text-slate-400">Halaman Admin</div>
             </div>
         </div>
         <!-- END: Login Info -->

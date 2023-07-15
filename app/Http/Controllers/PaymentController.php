@@ -7,6 +7,8 @@ use App\Models\Payment;
 use App\Models\Rental;
 use App\Models\Customer;
 use RealRashid\SweetAlert\Facades\Alert;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Carbon\Carbon;
 
 class PaymentController extends Controller
 {
@@ -22,10 +24,10 @@ class PaymentController extends Controller
         } else {
 
             $payments = Payment::orderBy('created_at', 'DESC')
-            ->join('rentals', 'payments.id_rental', '=', 'rentals.id_rental')
-            ->join('customers', 'rentals.id_customer', '=', 'customers.id_customer')
-            ->select('payments.*', 'customers.nama')
-            ->paginate(10);
+                ->join('rentals', 'payments.id_rental', '=', 'rentals.id_rental')
+                ->join('customers', 'rentals.id_customer', '=', 'customers.id_customer')
+                ->select('payments.*', 'customers.nama')
+                ->paginate(10);
         }
 
         return view('payment.index', compact('payments'));
@@ -90,5 +92,27 @@ class PaymentController extends Controller
         $payment->delete();
 
         return redirect()->route('payment.index')->with('success', 'payment deleted successfully');
+    }
+
+    public function print_pdf(Request $request)
+    {
+
+        if ($request->has('search')) {
+            $payments = Payment::join('rentals', 'payments.id_rental', '=', 'rentals.id_rental')
+                ->join('customers', 'rentals.id_customer', '=', 'customers.id_customer')
+                ->where('customers.nama', 'like', '%' . $request->search . '%')
+                ->orWhere('jenis', 'like', '%' . $request->search . '%')
+                ->get();
+        } else {
+            $payments = Payment::orderBy('created_at', 'DESC')
+                ->join('rentals', 'payments.id_rental', '=', 'rentals.id_rental')
+                ->join('customers', 'rentals.id_customer', '=', 'customers.id_customer')
+                ->select('payments.*', 'customers.nama')
+                ->get();
+        }
+        $time = Carbon::now('Asia/Jakarta');
+
+        $pdf = PDF::loadview('payment.print', ['payments' => $payments], ['time' => $time]);
+        return $pdf->stream();
     }
 }

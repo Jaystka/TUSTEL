@@ -20,7 +20,7 @@
             }
         </style>
         <center>
-            <h5>Data Produk Jasa Rental Kamera 'TUSTEL'</h5>
+            <h5>Data Retur Jasa Rental Kamera 'TUSTEL'</h5>
         </center>
         <p class="text-right">Waktu : {{ $time }} <br>Pengguna : {{auth()->user()->name}}</p>
 
@@ -28,21 +28,21 @@
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Produk</th>
-                    <th>Harga</th>
-                    <th>Jumlah</th>
-                    <th>Keterangan</th>
+                    <th>NAMA PELANGGAN</th>
+                    <th>ID RENTAL</th>
+                    <th>TANGGAL KEMBALI</th>
+                    <th>DENDA</th>
                 </tr>
             </thead>
             <tbody>
                 @php $i=1 @endphp
-                @foreach($products as $p)
+                @foreach($returs as $p)
                 <tr>
-                    <td>{{ $p['id_produk'] }}</td>
-                    <td>{{ $p['camera'] }}</td>
-                    <td>{{ $p['harga'] }}</td>
-                    <td>{{ $p['jumlah'] }}</td>
-                    <td>{{ $p['describe'] }}</td>
+                    <td>{{ $p['id_retur'] }}</td>
+                    <td>{{ $p['nama'] }}</td>
+                    <td>{{ $p['id_rental'] }}</td>
+                    <td>{{ $p['tanggal_kembali'] }}</td>
+                    <td>{{ $p['denda'] }}</td>
                 </tr>
                 @endforeach
             </tbody>

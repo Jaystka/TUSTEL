@@ -20,7 +20,7 @@
             }
         </style>
         <center>
-            <h5>Data Produk Jasa Rental Kamera 'TUSTEL'</h5>
+            <h5>Data Sewa Jasa Rental Kamera 'TUSTEL'</h5>
         </center>
         <p class="text-right">Waktu : {{ $time }} <br>Pengguna : {{auth()->user()->name}}</p>
 
@@ -28,21 +28,27 @@
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Produk</th>
-                    <th>Harga</th>
-                    <th>Jumlah</th>
-                    <th>Keterangan</th>
+                    <th>NAMA PELANGGAN</th>
+                    <th>PRODUK</th>
+                    <th>JUMLAH</th>
+                    <th>TANGGAL SEWA</th>
+                    <th>DURASI</th>
                 </tr>
             </thead>
             <tbody>
                 @php $i=1 @endphp
-                @foreach($products as $p)
+                @foreach($rentals as $rental)
                 <tr>
-                    <td>{{ $p['id_produk'] }}</td>
-                    <td>{{ $p['camera'] }}</td>
-                    <td>{{ $p['harga'] }}</td>
-                    <td>{{ $p['jumlah'] }}</td>
-                    <td>{{ $p['describe'] }}</td>
+                    <td>{{ $rental['id_rental'] }}</td>
+                    <td>{{ $rental['nama'] }}</td>
+                    <td>{{ $rental['camera'] }}</td>
+                    <td>{{ $rental['jumlah'] }}</td>
+                    <td>{{ $rental['created_at'] }}</td>
+                    <td>{{ $rental['durasi'] == '6' ? '6 Jam' : ($rental['durasi'] == '12' ? '12
+                        Jam': ($rental['durasi'] == '24' ? '1 Hari' :
+                        ($rental['durasi'] == '48' ? '2 Hari' : ($rental['durasi'] == '96' ? '4 Hari' :
+                        ($rental['durasi'] == '144' ? '7 Hari' : ($rental['durasi'] == '288' ? '14 Hari' : 'Kosong')) )
+                        )))}}</td>
                 </tr>
                 @endforeach
             </tbody>

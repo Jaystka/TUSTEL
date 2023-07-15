@@ -10,31 +10,12 @@
 <div class="grid grid-cols-12 gap-6 mt-5">
   <div class="intro-y col-span-12 flex flex-wrap sm:flex-nowrap items-center mt-2">
     <a class="btn btn-primary shadow-md mr-2" href="{{ route('payment.create') }}">Tambah Pembayaran</a>
-    <div class="dropdown">
-      <button class="dropdown-toggle btn px-2 box" aria-expanded="false" data-tw-toggle="dropdown">
+    <div>
+      <a href="{{ route('payment.print') }}" target="_blank" class=" btn px-2 box">
         <span class="w-5 h-5 flex items-center justify-center">
-          <i class="w-4 h-4" data-feather="plus"></i>
+          <i data-feather="printer" class="w-4 h-4"></i>
         </span>
-      </button>
-      <div class="dropdown-menu w-40">
-        <ul class="dropdown-content">
-          <li>
-            <a href="" class="dropdown-item">
-              <i data-feather="printer" class="w-4 h-4 mr-2"></i> Print
-            </a>
-          </li>
-          <li>
-            <a href="" class="dropdown-item">
-              <i data-feather="file-text" class="w-4 h-4 mr-2"></i> Export to Excel
-            </a>
-          </li>
-          <li>
-            <a href="" class="dropdown-item">
-              <i data-feather="file-text" class="w-4 h-4 mr-2"></i> Export to PDF
-            </a>
-          </li>
-        </ul>
-      </div>
+      </a>
     </div>
     <div class="hidden md:block mx-auto text-slate-500">{{ $payments->links('vendor.pagination.customTotal') }}
     </div>
@@ -118,7 +99,7 @@
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.0/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.12/dist/sweetalert2.all.min.js"></script>
 <script>
-$.ajaxSetup({
+  $.ajaxSetup({
 
   headers: {
 

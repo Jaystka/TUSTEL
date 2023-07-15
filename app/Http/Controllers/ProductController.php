@@ -100,5 +100,4 @@ class ProductController extends Controller
         $pdf = PDF::loadview('product.print', ['products' => $products], ['time' => $time]);
         return $pdf->stream();
     }
-
 }

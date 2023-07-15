@@ -8,12 +8,14 @@ use App\Models\Customer;
 use App\Models\Payment;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Carbon\Carbon;
 
 class RentalController extends Controller
 {
     public function index(Request $request)
     {
-  
+
         if ($request->has('search')) {
             $rentals = Rental::join('products', 'products.id_produk', '=', 'rentals.id_produk')
                 ->join('customers', 'customers.id_customer', '=', 'rentals.id_customer')
@@ -125,5 +127,27 @@ class RentalController extends Controller
             $rental->delete();
             return response()->json(['success' => 'Post created successfully.']);
         }
+    }
+
+    public function print_pdf(Request $request)
+    {
+
+        if ($request->has('search')) {
+            $rentals = Rental::join('products', 'products.id_produk', '=', 'rentals.id_produk')
+                ->join('customers', 'customers.id_customer', '=', 'rentals.id_customer')
+                ->where('nama', 'like', '%' . $request->search . '%')
+                ->orWhere('camera', 'like', '%' . $request->search . '%')
+                ->get();
+        } else {
+            $rentals = Rental::orderByDesc('rentals.created_at')
+                ->join('products', 'products.id_produk', '=', 'rentals.id_produk')
+                ->join('customers', 'customers.id_customer', '=', 'rentals.id_customer')
+                ->select('rentals.*', 'products.camera', 'customers.nama')
+                ->get();
+        }
+        $time = Carbon::now('Asia/Jakarta');
+
+        $pdf = PDF::loadview('rental.print', ['rentals' => $rentals], ['time' => $time]);
+        return $pdf->stream();
     }
 }

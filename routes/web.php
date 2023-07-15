@@ -14,6 +14,8 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
 use App\Models\Customer;
 use App\Models\Product;
+use App\Models\Rental;
+use App\Models\Retur;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,7 +45,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/paginate', [AdminController::class, 'paginationHome']);
     Route::get('/', [AdminController::class, 'index'])->name('dashboard');
     Route::get('/product/print', [ProductController::class, 'print_pdf'])->name('product.print');
-    Route::post('/product/search', [ProductController::class, 'search'])->name('product.search');
+    Route::get('/rental/print', [RentalController::class, 'print_pdf'])->name('rental.print');
+    Route::get('/payment/print', [PaymentController::class, 'print_pdf'])->name('payment.print');
+    Route::get('/retur/print', [ReturController::class, 'print_pdf'])->name('retur.print');
+    Route::get('/customer/print', [CustomerController::class, 'print_pdf'])->name('customer.print');
     Route::resource('/product', ProductController::class);
     Route::resource('/rental', RentalController::class);
     Route::resource('/payment', PaymentController::class);
