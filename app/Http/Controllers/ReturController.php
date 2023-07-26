@@ -72,10 +72,8 @@ class ReturController extends Controller
     public function edit(string $id_retur)
     {
         $retur = Retur::findOrFail($id_retur);
-        $customers = Customer::where('id_customer', $retur->id_customer)->get();
-        $rentals = Rental::get();
 
-        return view('retur.edit', compact('retur', 'rentals', 'customers'));
+        return view('retur.edit', compact('retur'));
     }
 
     /**
@@ -114,15 +112,15 @@ class ReturController extends Controller
 
         if ($request->has('search')) {
             $returs = Retur::join('rentals', 'returs.id_rental', '=', 'rentals.id_rental')
-            ->join('customers', 'rentals.id_customer', '=', 'customers.id_customer')
-            ->where('customers.nama', 'like', '%' . $request->search . '%')
+                ->join('customers', 'rentals.id_customer', '=', 'customers.id_customer')
+                ->where('customers.nama', 'like', '%' . $request->search . '%')
                 ->get();
         } else {
             $returs = Retur::orderByDesc('returs.created_at')
-            ->join('rentals', 'returs.id_rental', '=', 'rentals.id_rental')
-            ->join('customers', 'rentals.id_customer', '=', 'customers.id_customer')
-            ->select('returs.id_rental', 'customers.nama', 'returs.tanggal_kembali', 'returs.denda', 'returs.id_retur')
-            ->get();
+                ->join('rentals', 'returs.id_rental', '=', 'rentals.id_rental')
+                ->join('customers', 'rentals.id_customer', '=', 'customers.id_customer')
+                ->select('returs.id_rental', 'customers.nama', 'returs.tanggal_kembali', 'returs.denda', 'returs.id_retur')
+                ->get();
         }
         $time = Carbon::now('Asia/Jakarta');
 

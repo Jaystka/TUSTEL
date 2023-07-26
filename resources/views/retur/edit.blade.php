@@ -17,8 +17,8 @@
       <div class="intro-y box p-5">
         <div>
           <label for="id_rental" class="form-label">ID Rental</label>
-          <input id="id_rental" name="id_rental" type="text" class="form-control w-full" value="{{ $retur->id_rental }}"
-            placeholder="Masukkan ID Rental">
+          <input id="id_rental" name="id_rental" type="text" class="form-control w-full" disabled
+            value="{{ $retur->id_rental }}" placeholder="Masukkan ID Rental">
         </div>
         <div class="mt-3">
           <label for="date" class="form-label">Tanggal Pengembalian</label>
