@@ -63,7 +63,7 @@ class RentalController extends Controller
 
         rental::create(['id_rental' => $idR] + ['id_customer' => $request->id_customer]
             + ['id_produk' => $request->id_produk] + ['tanggal_sewa' => $request->tanggal_sewa]
-            + ['jumlah' => $request->jumlah] + ['durasi' => $request->durasi]);
+            + ['jumlah' => $request->jumlah] + ['durasi' => $request->durasi] + ['status' => 0]);
 
         $check = Payment::count();
         if ($check == 0) {

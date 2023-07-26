@@ -15,7 +15,8 @@ class Rental extends Model
         'id_produk',
         'tanggal_sewa',
         'jumlah',
-        'durasi'
+        'durasi',
+        'status'
     ];
     public $incrementing = false;
 }
