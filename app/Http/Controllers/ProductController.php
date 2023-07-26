@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\Rental;
 use RealRashid\SweetAlert\Facades\Alert;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
@@ -81,7 +82,7 @@ class ProductController extends Controller
     public function destroy(string $id_produk)
     {
 
-        $check = Product::Where('id_produk', $id_produk)->count();
+        $check = Rental::Where('id_produk', $id_produk)->count();
         if ($check > 0) {
             return response()->json([
 
