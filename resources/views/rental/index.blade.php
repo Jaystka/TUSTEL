@@ -129,7 +129,7 @@
             icon: 'warning',
             showDenyButton: true,
             confirmButtonColor: '#223e8c',
-            cancelDenyColor: '#d33',
+            denyButtonColor: '#d33',
             confirmButtonText: 'Ya, Hapus',
             denyButtonText: 'Batal',
         }).then((result) => {

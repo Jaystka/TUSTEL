@@ -80,11 +80,20 @@ class ProductController extends Controller
      */
     public function destroy(string $id_produk)
     {
-        $product = Product::findOrFail($id_produk);
 
-        $product->delete();
+        $check = Product::Where('id_produk', $id_produk)->count();
+        if ($check > 0) {
+            return response()->json([
 
-        return response()->json(['success' => 'Post created successfully.']);
+                'error' => 'error'
+
+            ]);
+        } else {
+
+            $product = Product::findOrFail($id_produk);
+            $product->delete();
+            return response()->json(['success' => 'Post created successfully.']);
+        }
     }
 
     public function print_pdf(Request $request)

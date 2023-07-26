@@ -64,7 +64,7 @@
                 <i data-feather="check-square" class="w-4 h-4 mr-1"></i> Edit
               </a>
               <form action="{{ route('payment.destroy', $payment->id_pembayaran) }}" method="POST" type="button"
-                id="formDelete">
+                class="formDelete">
                 @csrf
                 @method('DELETE')
                 <button class="flex items-center text-danger">
@@ -108,7 +108,7 @@
   }
 
 });
-$("#formDelete").submit(function(event) {
+$(".formDelete").submit(function(event) {
   event.preventDefault(); //prevent default action
   let post_url = $(this).attr("action"); //get form action url
   let request_method = $(this).attr("method"); //get form GET/POST method
@@ -119,7 +119,7 @@ $("#formDelete").submit(function(event) {
     icon: 'warning',
     showDenyButton: true,
     confirmButtonColor: '#223e8c',
-    cancelDenyColor: '#d33',
+    denyButtonColor: '#d33',
     confirmButtonText: 'Ya, Hapus',
     denyButtonText: 'Batal',
   }).then((result) => {
@@ -148,59 +148,9 @@ $("#formDelete").submit(function(event) {
           }
 
         }
-<<<<<<< HEAD
-
-    });
-    $(".formDelete").submit(function (event) {
-        event.preventDefault(); //prevent default action
-        let post_url = $(this).attr("action"); //get form action url
-        let request_method = $(this).attr("method"); //get form GET/POST method
-        let form_data = $(this).serialize(); //Encode form elements for submission
-        Swal.fire({
-            title: 'Hapus Data?',
-            text: "Data yang dihapus tidak dapat dikembalikan!",
-            icon: 'warning',
-            showDenyButton: true,
-            confirmButtonColor: '#223e8c',
-            cancelDenyColor: '#d33',
-            confirmButtonText: 'Ya, Hapus',
-            denyButtonText: 'Batal',
-        }).then((result) => {
-            if (result.isConfirmed) {
-                $.ajax({
-                    url: post_url,
-                    type: request_method,
-                    data: form_data,
-                    success: function (data) {
-                        if ($.isEmptyObject(data.error)) {
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'Data Berhasil Dihapus',
-                                timer: 1500,
-                            })
-
-                            location.reload();
-                        } else {
-                            Swal.fire({
-                                title: 'Ada Kesalahan!',
-                                text: 'Terdapat kesalahan dalam proses hapus!',
-                                icon: 'error',
-                                confirmButtonText: 'OK',
-                                confirmButtonColor: 'orange'
-                            }
-                            );
-                        }
-
-                    }
-                });
-            }
-        });
-    });
-=======
       });
     }
   });
 });
->>>>>>> 29180ff471b7a2777d753510b76f3da8524f0d15
 </script>
 @endsection
