@@ -38,7 +38,11 @@ class PaymentController extends Controller
      */
     public function create()
     {
-        return view('payment.create');
+        $rentals = Rental::Where('status', '=', '0')
+            ->join('customers', 'rentals.id_customer', '=', 'customers.id_customer')
+            ->select('rentals.id_rental', 'customers.nama')
+            ->get();
+        return view('payment.create', compact('rentals'));
     }
 
     /**
@@ -57,7 +61,8 @@ class PaymentController extends Controller
         };
         Payment::create(['id_pembayaran' => $id] + $request->all());
 
-        return redirect()->route('payment.index')->with('success', 'payment added successfully');
+        Alert::success('Berhasil ditambahkan')->background('#F2F2F0')->showConfirmButton('Ok', '#0b8a0b')->autoClose(3000);
+        return redirect()->route('payment.index');
     }
 
     /**
