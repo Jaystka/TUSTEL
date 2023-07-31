@@ -41,6 +41,7 @@
           <th class="text-center whitespace-nowrap">JENIS</th>
           <th class="text-center whitespace-nowrap">TANGGAL PEMBAYARAN</th>
           <th class="text-center whitespace-nowrap">TOTAL</th>
+          <th class="text-center whitespace-nowrap">ACTION</th>
         </tr>
       </thead>
       <tbody>
