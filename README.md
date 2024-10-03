@@ -21,6 +21,15 @@ Proyek web admin rental kamera
 ```bash
   composer require realrashid/sweet-alert
 ```
+- Jalankan NPM
+```bash
+  npm run dev
+```
+- Jalankan Laravel
+```bash
+  php artisan serve
+```
+
 ## Authors
 
 - [@Zhafir Zidan](https://www.github.com/zhafirzidann/)
